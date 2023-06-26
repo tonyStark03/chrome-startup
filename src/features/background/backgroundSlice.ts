@@ -15,14 +15,14 @@ export const backgroundSlice = createSlice({
     name: "background",
     initialState,
     reducers: {
-        addNewBackground: (state, action: PayloadAction<BackgroundState>) => {
+        changeBackground: (state, action: PayloadAction<BackgroundState>) => {
             state.type = action.payload.type;
             state.value = action.payload.value;
-        }
-    }
+        },
+    },
 });
 
-export const { addNewBackground } = backgroundSlice.actions;
+export const { changeBackground } = backgroundSlice.actions;
 
 export const selectBackground = (state: RootState) => state.background;
 

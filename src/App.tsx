@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import { Background } from './features/background/Background';
 import './App.css';
 import { useAppSelector, useAppDispatch } from './app/hooks';
+import { addLocalImage, addLocalVideo, getLocalImageList } from './app/handlingDatabase';
 import {
-    addNewBackground,
+    changeBackground,
     selectBackground,
 } from './features/background/backgroundSlice'
-
-function App() {
+const App =() => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
-    const changeBackground = () => {
-        if(background.type === 'color') {
-            dispatch(addNewBackground({type: 'gradient', value: '#6D92CA-#A22AEE'}));
+
+    const changeBack = () => {
+        if (background.type === 'color') {
+            dispatch(changeBackground({ type: 'gradient', value: '#6D92CA-#A22AEE' }));
         }
-        if(background.type === 'gradient') {
-            dispatch(addNewBackground({type: 'color', value: '#ccffcc'}));
+        if (background.type === 'gradient') {
+            dispatch(changeBackground({ type: 'image', value: 'Nilou_FlHD.png' }));
+        }
+        if (background.type === 'image') {
+            dispatch(changeBackground({ type: 'video', value: 'pexels-rostislav-uzunov-5680034 (1080p).mp4' }));
+        }
+        if (background.type === 'video') {
+            dispatch(changeBackground({ type: 'color', value: '#ccffcc' }));
         }
     }
+
     return (
         <div className="App">
             <Background />
+            {/* <input type='file' multiple accept='video/*'
+                onChange={(e) => { addLocalVideo(e) }}
+            /> */}
             <button
-            onClick={changeBackground}
+                onClick={changeBack}
             >change</button>
         </div>
     );
