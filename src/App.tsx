@@ -1,58 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { Background } from './features/background/Background';
 import './App.css';
+import { useAppSelector, useAppDispatch } from './app/hooks';
+import { addLocalImage, addLocalVideo, getLocalImageList } from './app/handlingDatabase';
+import {
+    changeBackground,
+    selectBackground,
+} from './features/background/backgroundSlice'
+const App =() => {
+    let background = useAppSelector(selectBackground);
+    const dispatch = useAppDispatch();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span className='bg-red-800'>Learn  </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    const changeBack = () => {
+        if (background.type === 'color') {
+            dispatch(changeBackground({ type: 'gradient', value: '#6D92CA-#A22AEE' }));
+        }
+        if (background.type === 'gradient') {
+            dispatch(changeBackground({ type: 'image', value: 'Nilou_FlHD.png' }));
+        }
+        if (background.type === 'image') {
+            dispatch(changeBackground({ type: 'video', value: 'pexels-rostislav-uzunov-5680034 (1080p).mp4' }));
+        }
+        if (background.type === 'video') {
+            dispatch(changeBackground({ type: 'color', value: '#ccffcc' }));
+        }
+    }
+
+    return (
+        <div className="App">
+            <Background />
+            {/* <input type='file' multiple accept='video/*'
+                onChange={(e) => { addLocalVideo(e) }}
+            /> */}
+            <button
+                onClick={changeBack}
+            >change</button>
+        </div>
+    );
 }
 
 export default App;
