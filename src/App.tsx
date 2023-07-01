@@ -8,6 +8,7 @@ import {
     changeBackground,
     selectBackground,
 } from './features/background/backgroundSlice'
+import Application from './features/Applicaiton/Application';
 const App =() => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
@@ -32,10 +33,11 @@ const App =() => {
             <Background />
             {/* <input type='file' multiple accept='video/*'
                 onChange={(e) => { addLocalVideo(e) }}
-            /> */}
+            />
             <button
                 onClick={changeBack}
-            >change</button>
+            >change</button> */}
+            <Application/>
         </div>
     );
 }

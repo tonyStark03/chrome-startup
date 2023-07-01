@@ -7,8 +7,8 @@ export interface BackgroundState {
 }
 
 const initialState: BackgroundState = {
-    type: "color",
-    value: "#ccffcc",
+    type: "gradient",
+    value: "#6D92CA-#A22AEE",
 };
 
 export const backgroundSlice = createSlice({
