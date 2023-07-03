@@ -8,10 +8,23 @@ import {
     changeBackground,
     selectBackground,
 } from './features/background/backgroundSlice'
-const App =() => {
+import {
+    selectTheme,
+} from './features/theme/themeSlice'
+import Application from './features/Applicaiton/Application';
+const App = () => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
+    const theme = useAppSelector(selectTheme);
+    useEffect(() => {
 
+        // add theme.fontFamily to head of DOM
+        let head = document.querySelector("head")
+        let link = document.createElement("link")
+        link.setAttribute("rel", "stylesheet")
+        link.setAttribute("href", `https://fonts.googleapis.com/css2?family=${theme.fontFamily}&display=swap`)
+        head?.appendChild(link)
+    }, [theme.fontFamily]);
     const changeBack = () => {
         if (background.type === 'color') {
             dispatch(changeBackground({ type: 'gradient', value: '#6D92CA-#A22AEE' }));
@@ -28,14 +41,19 @@ const App =() => {
     }
 
     return (
-        <div className="App">
+        <div className="App" style={{
+            fontFamily: theme.fontFamily.split('+').join(' '),
+        }}>
             <Background />
             {/* <input type='file' multiple accept='video/*'
                 onChange={(e) => { addLocalVideo(e) }}
-            /> */}
+            />
             <button
                 onClick={changeBack}
-            >change</button>
+            >change</button> */}
+            <Application />
+            {/* Overlay */}
+            
         </div>
     );
 }

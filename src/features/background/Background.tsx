@@ -37,7 +37,12 @@ const Background: React.FC = () => {
                             return data + String.fromCharCode(byte);
                         }, '');
                         let base64String = window.btoa(STRING_CHAR);
-                        backgroundEle?.setAttribute('style', `background-image: url(data:image/png;base64,${base64String});`)
+                        backgroundEle?.setAttribute('style', `background-image: url(data:image/png;base64,${base64String});
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: center;
+                        
+                        `)
 
                     });
                     break;
