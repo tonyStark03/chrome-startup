@@ -21,7 +21,7 @@ const initialState: themeSliceProps = {
     backgroundBlur: "0",
     textColor: "#ffffff",
     primaryColor: "#c40042",
-    borderColor: "#ccffcc",
+    borderColor: "#808080",
     borderRadius: "10",
     navBlur: "10",
     fontFamily: `Dancing+Script`,
