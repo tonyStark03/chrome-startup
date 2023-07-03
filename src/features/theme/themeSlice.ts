@@ -20,12 +20,12 @@ const initialState: themeSliceProps = {
     backgroundValue: "#ffffff",
     backgroundBlur: "0",
     textColor: "#ffffff",
-    primaryColor: "#ffffff",
+    primaryColor: "#c40042",
     borderColor: "#ccffcc",
     borderRadius: "10",
     navBlur: "10",
     fontFamily: `Dancing+Script`,
-    backgroundColor: "#ccffcc",
+    backgroundColor: "#333333",
     displaySetting: true,
 };
 
@@ -44,21 +44,11 @@ export const themeSlice = createSlice({
             state.navBlur = action.payload.navBlur;
             state.fontFamily = action.payload.fontFamily;
             state.backgroundColor = action.payload.backgroundColor;
-            state.displaySetting = action.payload.displaySetting;
         },
-        openSetting: (state) => {
-            state.displaySetting = true;
-        },
-        closeSetting: (state) => {
-            state.displaySetting = false;
-        }
     },
 });
 
-export const { changeTheme,
-    openSetting,
-    closeSetting
- } = themeSlice.actions;
+export const { changeTheme } = themeSlice.actions;
 export const selectTheme = (state: RootState) => state.theme;
 
 export default themeSlice.reducer;

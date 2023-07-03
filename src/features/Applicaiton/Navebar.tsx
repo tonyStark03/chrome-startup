@@ -2,8 +2,6 @@ import React from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
     selectTheme,
-    openSetting,
-    closeSetting,
 } from '../theme/themeSlice'
 import { RiSettingsFill } from 'react-icons/ri';
 const Navebar: React.FC = () => {
@@ -22,14 +20,10 @@ const Navebar: React.FC = () => {
             {/* left part */}
             <div className='flex items-center justify-center'>
 
-                <RiSettingsFill className='text-3xl hover:cursor-pointer' style={{
-                    color: theme.primaryColor,
-                }}
-                    onClick={() => {
-                        dispatch(openSetting())
-                        console.log('setting')
-                    }
-                    }
+                <RiSettingsFill className='text-3xl hover:cursor-pointer hover:scale-110 transition-all duration-300 hover:rotate-180
+                ' style={{
+                        color: theme.primaryColor,
+                    }}
                 />
             </div>
             {/* middlepart */}

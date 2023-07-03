@@ -12,7 +12,6 @@ import {
     selectTheme,
 } from './features/theme/themeSlice'
 import Application from './features/Applicaiton/Application';
-import Setting from './features/Setting/Setting';
 const App = () => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
@@ -25,8 +24,7 @@ const App = () => {
         link.setAttribute("rel", "stylesheet")
         link.setAttribute("href", `https://fonts.googleapis.com/css2?family=${theme.fontFamily}&display=swap`)
         head?.appendChild(link)
-        console.log('theme.fontFamily', theme.fontFamily);
-    }, [theme]);
+    }, [theme.fontFamily]);
     const changeBack = () => {
         if (background.type === 'color') {
             dispatch(changeBackground({ type: 'gradient', value: '#6D92CA-#A22AEE' }));
@@ -43,7 +41,9 @@ const App = () => {
     }
 
     return (
-        <div className="App">
+        <div className="App" style={{
+            fontFamily: theme.fontFamily.split('+').join(' '),
+        }}>
             <Background />
             {/* <input type='file' multiple accept='video/*'
                 onChange={(e) => { addLocalVideo(e) }}
@@ -53,9 +53,7 @@ const App = () => {
             >change</button> */}
             <Application />
             {/* Overlay */}
-            {theme.displaySetting &&
-                <Setting/>
-            }
+            
         </div>
     );
 }
