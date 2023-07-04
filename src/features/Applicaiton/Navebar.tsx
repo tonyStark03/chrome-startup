@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     selectTheme,
 } from '../theme/themeSlice'
 import { AnimatePresence, motion } from "framer-motion"
+import Card from './card';
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -73,14 +75,19 @@ const Navebar: React.FC = () => {
                     >
                         {
                             navState === 1 &&
-                            <div className='text-white'>
-                                adfwdfsas
+                            <div className='text-white flex flex-row flex-1 justify-around' >
+                                <Card/>
+                                <Card/>
+                                <Card/>
+                                <Card/>
+
                             </div>
                         }
                         {
                             navState === 2 &&
                             <div className='text-white'>
-                                adfwdfsas
+                                awsbfffg
+
                             </div>
                         }
 

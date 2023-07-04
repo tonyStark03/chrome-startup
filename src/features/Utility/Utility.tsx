@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import * as Separator from '@radix-ui/react-separator';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useSelector } from 'react-redux';
@@ -11,52 +11,52 @@ const selectTextColor = createSelector(
     (state:RootState) => state.theme
     , (theme) => theme.textColor
 )
-const Time: React.FC = () => {
-    const [time, setTime] = useState(new Date());
-    const textcolor = useSelector(selectTextColor);
-    // setInterval(() => {
-    //     setTime(new Date());
-    // }, 60 * 1000);
-    // ^^^^^^^^^^^^^^^^^^^^^^
-    // This is causing the memory leak
-    // will fix it later
-    const getDate = () => {
-        let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', "Oct", 'Nov', 'Dec'];
-        let day = days[time.getDay()];
-        let date = time.getDate();
-        let month = months[time.getMonth()];
-        return `${day}, ${date} ${month}`;
-    }
-    console.count('Time')
+    const UseDate = () => {
+    const locale = 'en';
+    const [today, setDate] = useState(new Date()); 
+  
+    useEffect(() => {
+        const timer = setInterval(() => { 
+        setDate(new Date());
+      }, 60 * 1000);
+      return () => {
+        clearInterval(timer);
+      }
+    }, []);
+  
+    const day = today.toLocaleDateString(locale, { weekday: 'short' });
+    const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, { month: 'long' })}\n\n`;
+      const time = today.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric' });
+  
+
+
     return (
         <>
-            <strong className='text-9xl max-xl:text-8xl max-lg:text-7xl' style={{
-                color: textcolor,
+            
+            <strong className='text-8xl max-xl:text-8xl max-lg:text-7xl' style={{
+                color: 'white',
             }}>
-                {time.getHours() < 10 ? '0' + time.getHours() : time.getHours()}:{time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()}
+                {time}
             </strong>
             <Separator.Root decorative className=' w-5/6 h-1 ' />
+                
             <Separator.Root decorative className=' w-5/6 h-0.5 rounded-xl' style={{
-                backgroundColor: textcolor,
+                backgroundColor: 'white',
             }} />
-            <Separator.Root decorative className=' w-5/6 h-1 ' />
-            {/* Date,Day */}
-            <div className='flex items-center justify-center'>
-                <strong className='text-2xl max-xl:text-xl max-lg:text-lg' style={{
-                    color: textcolor,
-                }}>
-                    {getDate()}
-
-                </strong>
+            <div style={{
+                color: 'white',
+            }}>
+                {date}
             </div>
+            
+
         </>
     )
 }
 const Utility = () => {
     return (
         <div className='flex flex-col items-center justify-center h-full w-full'>
-            <Time />
+            <UseDate />
         </div>
     )
 }
