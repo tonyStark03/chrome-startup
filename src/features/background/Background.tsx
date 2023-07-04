@@ -75,22 +75,24 @@ const Background: React.FC = () => {
             let blob = new Blob([video], { type: 'video/mp4' });
             let videoBlobURL = URL.createObjectURL(blob);
             videoRef.current?.setAttribute('src', videoBlobURL);
-            
+
         });
         console.log('changeBackgroundVideo');
     }
     const getVideoURL = () => {
         let videoBlobURL = '';
-        
+
         console.log(videoBlobURL);
         return videoBlobURL;
     }
     return (
-        <div className='BACKGROUND fixed top-0 left-0 w-full h-full -z-50'>
+        <div className='BACKGROUND fixed top-0 left-0 w-full h-full -z-50
+        '
+        >
             {/* play video in loop indefinately */}
             {background.type === "video" &&
-                <video className='w-full h-full object-cover' ref={videoRef}  
-                autoPlay loop muted playsInline
+                <video className='w-full h-full object-cover' ref={videoRef}
+                    autoPlay loop muted playsInline
                 />
             }
         </div >
