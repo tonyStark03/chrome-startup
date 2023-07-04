@@ -14,7 +14,7 @@ const Navebar: React.FC = () => {
         <>
             <div
                 className='fixed top-0 left-0  w-screen flex
-            items-center justify-between px-1  z-50
+            items-center justify-between px-1 z-50
             '
                 style={{
                     backgroundColor: "#010101",
@@ -54,10 +54,9 @@ const Navebar: React.FC = () => {
             {navState !== 0 &&
                 // animate on exit
                 <AnimatePresence >
-                    {/* make height 60vh */}
                     <motion.div
                         className='fixed top-0 left-0 w-screen flex
-                    items-center justify-center px-1  z-40
+                    items-center justify-center
                     '
                         style={{
                             backgroundColor: "#010101",
@@ -69,17 +68,34 @@ const Navebar: React.FC = () => {
                             ease: "easeInOut",
                         }
                         }
-                        initial={{  y: -150 }}
-                        animate={{  y: "6.5vh" }}
-                        exit={{  x: -100 }}
+                        initial={{ y: -150 }}
+                        animate={{ y: "6.5vh" }}
+                        exit={{ x: -100 }}
                     >
                         {
                             navState === 1 &&
-                            <div className='text-white flex flex-row flex-1 justify-around' >
-                                <Card/>
-                                <Card/>
-                                <Card/>
-                                <Card/>
+                            <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
+                            ' >
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
+                                <Card />
 
                             </div>
                         }
