@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     selectTheme,
 } from '../theme/themeSlice'
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, animate, motion } from "framer-motion"
 import Card from './card';
+import {
+    selectNavbar,
+    changeNavbarState
+} from "./navbarSlice"
+import { Opacity, WidthFull } from '@mui/icons-material';
+import { useRef, useState } from 'react';
+import Setting from './Setting'
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
-    const [navState, setNavState] = useState(0);
+    const navState = useAppSelector(selectNavbar).state;
     return (
         <>
             <div
@@ -35,7 +41,7 @@ const Navebar: React.FC = () => {
                     <button className='mr-4 hover:text-gray-400 transition-all duration-300 text-white px-2 
                 '
                         onClick={() => {
-                            navState === 1 ? setNavState(0) : setNavState(1)
+                            navState === 1 ? dispatch(changeNavbarState(0)) : dispatch(changeNavbarState(1))
                         }}
                     >
                         Setting
@@ -43,13 +49,18 @@ const Navebar: React.FC = () => {
                     <button className='mr-4 hover:text-gray-400 transition-all duration-300 text-white px-2 
                 '
                         onClick={() => {
-                            navState === 2 ? setNavState(0) : setNavState(2)
+                            navState === 2 ? dispatch(changeNavbarState(0)) : dispatch(changeNavbarState(2))
                         }}
                     >
                         F/Q
                     </button>
                 </div>
             </div>
+
+
+
+
+
             {/* content of tabs */}
             {navState !== 0 &&
                 // animate on exit
@@ -61,41 +72,27 @@ const Navebar: React.FC = () => {
                         style={{
                             backgroundColor: "#010101",
                             height: "50vh",
+                            boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0)`,
                         }}
-                        // ease in 
                         transition={{
                             duration: 0.1,
                             ease: "easeInOut",
                         }
                         }
                         initial={{ y: -150 }}
-                        animate={{ y: "6.5vh" }}
+                        animate={{
+                            y: "6.5vh",
+                            boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0.5)`,
+                        }}
                         exit={{ x: -100 }}
                     >
                         {
                             navState === 1 &&
                             <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
                             ' >
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
-                                <Card />
+                                <Card heading='Background' subHeading='Change your background'><Setting>""</Setting></Card>
+                                <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>
+                                <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>
 
                             </div>
                         }
@@ -109,7 +106,7 @@ const Navebar: React.FC = () => {
 
 
                     </motion.div>
-                </AnimatePresence>
+                </AnimatePresence >
 
             }
         </>
