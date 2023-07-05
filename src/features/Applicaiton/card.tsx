@@ -8,8 +8,13 @@ import { selectNavbar } from "./navbarSlice";
 import React from "react";
 import backgroundSlice from "../background/backgroundSlice";
 
+interface Props {
+    heading: string;
+    subHeading: string;
+    children: React.ReactNode
+}
 
-const Card: React.FC = () => {
+const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
     const element = useRef<HTMLDivElement>
         (null);
     const [isHovering, setIsHovering] = useState(false);
@@ -85,10 +90,10 @@ const Card: React.FC = () => {
                     onMouseLeave={handleMouseOut}
                     style={{
                         aspectRatio: "4/5",
-                        backgroundColor:"#7C81E3",
-                        backgroundImage:"linear-gradient(#010101,#010101)",
-                        backgroundRepeat:"no-repeat",
-                        backgroundPositionY:!isHovering?"0":`-${element && element.current ?element.current.clientHeight+10:1}px`,
+                        backgroundColor: "#7C81E3",
+                        backgroundImage: "linear-gradient(#010101,#010101)",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPositionY: !isHovering ? "0" : `-${element && element.current ? element.current.clientHeight + 10 : 1}px`,
                         transition: "all .1s ease-in",
                     }}
                     animate={fadeAwayAnimation}
@@ -116,9 +121,7 @@ const Card: React.FC = () => {
                             className="text-2xl font-bold 
                 "
                         >
-                            Card{
-                                `${x.get()}}`
-                            }
+                            {heading}
                         </motion.h1>
 
                         {isHovering && (
@@ -126,7 +129,7 @@ const Card: React.FC = () => {
                                 className="pt-1 text-sm hover:top-6
                 "
                             >
-                                blah blah blah blah
+                                {subHeading}
                             </div>
                         )}
                     </div>
@@ -135,21 +138,7 @@ const Card: React.FC = () => {
             }
             {
                 isMainScreen && (
-                    <motion.div
-                        className="flex flex-col justify-center items-center bg-red-400
-                "
-                    >
-                        {/* back button */}
-                        <IoMdArrowRoundBack
-                            className="text-4xl absolute top-0 left-0"
-                            onClick={() => {
-                                dispatch(changeNavbarState(0))
-                            }}
-                        />
-                        {/* seperator */}
-
-                        {/* main content */}
-                    </motion.div>
+                    children
                 )
             }
         </motion.div >

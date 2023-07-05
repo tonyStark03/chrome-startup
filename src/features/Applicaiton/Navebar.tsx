@@ -11,6 +11,7 @@ import {
 } from "./navbarSlice"
 import { Opacity, WidthFull } from '@mui/icons-material';
 import { useRef, useState } from 'react';
+import Setting from './Setting'
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -89,9 +90,9 @@ const Navebar: React.FC = () => {
                             navState === 1 &&
                             <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
                             ' >
-                                <Card />
-                                <Card />
-                                <Card />
+                                <Card heading='Background' subHeading='Change your background'><Setting>""</Setting></Card>
+                                <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>
+                                <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>
 
                             </div>
                         }
