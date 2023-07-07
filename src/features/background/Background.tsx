@@ -33,11 +33,9 @@ const Background: React.FC = () => {
                             return;
                         }
                         let typedArray = new Uint8Array(image);
-                        const STRING_CHAR = typedArray.reduce((data, byte) => {
-                            return data + String.fromCharCode(byte);
-                        }, '');
-                        let base64String = window.btoa(STRING_CHAR);
-                        backgroundEle?.setAttribute('style', `background-image: url(data:image/png;base64,${base64String});
+                        const dataURL =window.URL.createObjectURL(new Blob([typedArray]));
+                        
+                        backgroundEle?.setAttribute('style', `background-image: url(${dataURL});
                         background-repeat: no-repeat;
                         background-size: cover;
                         background-position: center;
@@ -73,8 +71,8 @@ const Background: React.FC = () => {
                 return;
             }
             let blob = new Blob([video], { type: 'video/mp4' });
-            let videoBlobURL = URL.createObjectURL(blob);
-            videoRef.current?.setAttribute('src', videoBlobURL);
+            let dataURL = window.URL.createObjectURL(blob);
+            videoRef.current?.setAttribute('src', dataURL);
 
         });
         console.log('changeBackgroundVideo');

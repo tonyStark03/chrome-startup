@@ -16,9 +16,9 @@ const Video: React.FC<Props> = ({ id }) => {
         const t = async () => {
             const d = await getLocalVideo(id).then((res: ArrayBuffer | null) => {
                 if (res === null) return '';
-                let blob = new Blob([res], { type: 'video/mp4' });
-                let videoBlobURL = URL.createObjectURL(blob);
-                videoRef.current?.setAttribute('src', videoBlobURL);
+                const typedArray = new Uint8Array(res);
+                const dataURL = window.URL.createObjectURL(new Blob([typedArray]));
+                videoRef.current?.setAttribute('src', dataURL);
             })
 
         }

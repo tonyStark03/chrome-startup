@@ -17,12 +17,8 @@ const Image: React.FC<Props> = ({ id }) => {
             const d = await getLocalImage(id).then((res: ArrayBuffer | null) => {
                 if (res === null) return '';
                 const typedArray = new Uint8Array(res);
-                const STRING_CHAR = typedArray.reduce((data, byte) => {
-                    return data + String.fromCharCode(byte);
-                }
-                    , '');
-                const base64String = window.btoa(STRING_CHAR);
-                setData(base64String);
+                const dataURL = window.URL.createObjectURL(new Blob([typedArray]));
+                setData(dataURL);
             })
 
         }
@@ -53,7 +49,7 @@ const Image: React.FC<Props> = ({ id }) => {
                 ease: 'easeInOut',
             }}
             style={{
-                backgroundImage: `url(data:image/png;base64,${data})`,
+                backgroundImage: `url(${data})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
