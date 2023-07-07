@@ -1,4 +1,5 @@
 import React from "react";
+import { themeSliceProps } from "../features/theme/themeSlice";
 export const createDatabase = () => {
     // database to store images
     let req = indexedDB.open("backgroundData", 1);
@@ -123,106 +124,6 @@ export const getLocalImage = (id: IDBValidKey) => {
     });
 };
 
-export const addColor = (color: string) => {
-    let req = indexedDB.open("backgroundData", 1);
-    req.onsuccess = () => {
-        let db = req.result;
-        let tx = db.transaction("colors", "readwrite");
-        let store = tx.objectStore("colors");
-        // check if color already exists
-        let reqGet = store.get(color);
-        reqGet.onsuccess = () => {
-            if (reqGet.result === undefined) {
-                console.log("Color does not exist");
-                // add color to database
-                let reqAdd = store.put({
-                    id: color,
-                    data: color,
-                });
-                reqAdd.onsuccess = () => {
-                    console.log("Color added to DB");
-                };
-                reqAdd.onerror = () => {
-                    console.log("Error adding color to DB");
-                };
-            } else {
-                console.log("Color already exists");
-            }
-        };
-    };
-};
-
-export const getColorList = () => {
-    return new Promise((resolve, reject) => {
-        let req = indexedDB.open("backgroundData", 1);
-        req.onsuccess = () => {
-            let db = req.result;
-            let tx = db.transaction("colors", "readonly");
-            let store = tx.objectStore("colors");
-            let reqGet = store.getAll();
-            reqGet.onsuccess = () => {
-                resolve(reqGet.result);
-            };
-            reqGet.onerror = () => {
-                reject(new Error("Failed to get color list"));
-            };
-        };
-        req.onerror = () => {
-            reject(new Error("Failed to open indexedDB"));
-        };
-    });
-};
-
-export const addGradient = (gradient: string) => {
-    let req = indexedDB.open("backgroundData", 1);
-    req.onsuccess = () => {
-        let db = req.result;
-        let tx = db.transaction("gradients", "readwrite");
-        let store = tx.objectStore("gradients");
-        // check if gradient already exists
-        let reqGet = store.get(gradient);
-        reqGet.onsuccess = () => {
-            if (reqGet.result === undefined) {
-                console.log("Gradient does not exist");
-                // add gradient to database
-                let reqAdd = store.put({
-                    id: gradient,
-                    data: gradient,
-                });
-                reqAdd.onsuccess = () => {
-                    console.log("Gradient added to DB");
-                };
-                reqAdd.onerror = () => {
-                    console.log("Error adding gradient to DB");
-                };
-            } else {
-                console.log("Gradient already exists");
-            }
-        };
-    };
-};
-
-export const getGradientList = () => {
-    return new Promise((resolve, reject) => {
-        let req = indexedDB.open("backgroundData", 1);
-        req.onsuccess = () => {
-            let db = req.result;
-            let tx = db.transaction("gradients", "readonly");
-            let store = tx.objectStore("gradients");
-            let reqGet = store.getAll();
-            reqGet.onsuccess = () => {
-                resolve(reqGet.result);
-            };
-            reqGet.onerror = () => {
-                reject(new Error("Failed to get gradient list"));
-            };
-        };
-        req.onerror = () => {
-            reject(new Error("Failed to open indexedDB"));
-        };
-    });
-};
-
 export const addLocalVideo = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (
         event === null ||
@@ -311,4 +212,119 @@ export const getLocalVideo = (id: IDBValidKey) => {
             reject(new Error("Failed to open indexedDB"));
         };
     });
-}
+};
+
+export const addSolidColor = (color: string) => {
+    let req = indexedDB.open("backgroundData", 1);
+    req.onsuccess = () => {
+        let db = req.result;
+        let tx = db.transaction("solidColors", "readwrite");
+        let store = tx.objectStore("solidColors");
+        // check if color already exists
+        let reqGet = store.get(color);
+        reqGet.onsuccess = () => {
+            if (reqGet.result === undefined) {
+                console.log("Color does not exist");
+                // add color to database
+                let reqAdd = store.put({
+                    id: color,
+                    data: "",
+                });
+                reqAdd.onsuccess = () => {
+                    console.log("Color added to DB");
+                };
+                reqAdd.onerror = () => {
+                    console.log("Error adding color to DB");
+                };
+            } else {
+                console.log("Color already exists");
+            }
+        };
+    };
+};
+
+export const getSolidColorList = () => {
+    return new Promise<IDBValidKey[]>((resolve, reject) => {
+        let req = indexedDB.open("backgroundData", 1);
+        req.onsuccess = () => {
+            let db = req.result;
+            let tx = db.transaction("solidColors", "readonly");
+            let store = tx.objectStore("solidColors");
+            let reqGet = store.getAllKeys();
+            reqGet.onsuccess = () => {
+                resolve(reqGet.result);
+            };
+            reqGet.onerror = () => {
+                reject(new Error("Failed to get solid color list"));
+            };
+        };
+        req.onerror = () => {
+            reject(new Error("Failed to open indexedDB"));
+        };
+    });
+};
+
+export const addGradient = (gradient: string) => {
+    let req = indexedDB.open("backgroundData", 1);
+    req.onsuccess = () => {
+        let db = req.result;
+        let tx = db.transaction("gradients", "readwrite");
+        let store = tx.objectStore("gradients");
+        // check if gradient already exists
+        let reqGet = store.get(gradient);
+        reqGet.onsuccess = () => {
+            if (reqGet.result === undefined) {
+                console.log("Gradient does not exist");
+                // add gradient to database
+                let reqAdd = store.put({
+                    id: gradient,
+                    data: "",
+                });
+                reqAdd.onsuccess = () => {
+                    console.log("Gradient added to DB");
+                };
+                reqAdd.onerror = () => {
+                    console.log("Error adding gradient to DB");
+                };
+            } else {
+                console.log("Gradient already exists");
+            }
+        };
+    };
+};
+
+export const getGradientList = () => {
+    return new Promise<IDBValidKey[]>((resolve, reject) => {
+        let req = indexedDB.open("backgroundData", 1);
+        req.onsuccess = () => {
+            let db = req.result;
+            let tx = db.transaction("gradients", "readonly");
+            let store = tx.objectStore("gradients");
+            let reqGet = store.getAllKeys();
+            reqGet.onsuccess = () => {
+                resolve(reqGet.result);
+            };
+            reqGet.onerror = () => {
+                reject(new Error("Failed to get gradient list"));
+            };
+        };
+        req.onerror = () => {
+            reject(new Error("Failed to open indexedDB"));
+        };
+    });
+};
+
+export const storeThemeInLocalStorage = (theme: themeSliceProps) => {
+    let id = "theme";
+    let data = JSON.stringify(theme);
+    localStorage.setItem(id, data);
+};
+
+export const getThemeFromLocalStorage = () => {
+    let id = "theme";
+    let data = localStorage.getItem(id);
+    if (data === null) {
+        return undefined;
+    }
+    return JSON.parse(data) as themeSliceProps;
+};

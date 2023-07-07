@@ -3,19 +3,36 @@ import logo from './logo.svg';
 import { Background } from './features/background/Background';
 import './App.css';
 import { useAppSelector, useAppDispatch } from './app/hooks';
-import { addLocalImage, addLocalVideo, getLocalImageList } from './app/handlingDatabase';
+import { addLocalImage, addLocalVideo, getLocalImageList, storeThemeInLocalStorage } from './app/handlingDatabase';
 import {
     changeBackground,
     selectBackground,
 } from './features/background/backgroundSlice'
 import {
-    selectTheme,
+    selectTheme, changeTheme
 } from './features/theme/themeSlice'
 import Application from './features/Applicaiton/Application';
+import { getThemeFromLocalStorage } from './app/handlingDatabase'
 const App = () => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
     const theme = useAppSelector(selectTheme);
+    useEffect(() => {
+        const t = async () => {
+            const themeData = await getThemeFromLocalStorage();
+            if (themeData === undefined) {
+                dispatch(changeTheme(theme));
+                // alert("themeData")
+            } else {
+                dispatch(changeTheme(themeData));
+                dispatch(changeBackground({
+                    type:themeData.backgroundType,
+                    value:themeData.backgroundValue
+                }))
+            }
+        }
+        t();
+    }, []);
     useEffect(() => {
 
         // add theme.fontFamily to head of DOM
@@ -47,13 +64,15 @@ const App = () => {
             <Background />
             {/* <input type='file' multiple accept='video/*'
                 onChange={(e) => { addLocalVideo(e) }}
-            />
-            <button
+                className='translate-y-60
+                '
+            /> */}
+            {/* <button
                 onClick={changeBack}
             >change</button> */}
             <Application />
             {/* Overlay */}
-            
+
         </div>
     );
 }

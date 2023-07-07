@@ -14,12 +14,12 @@ const Setting: React.FC<Props> = ({ children }) => {
     const theme = useAppSelector(selectTheme);
     const dispatch = useAppDispatch();
     return (
-        <div className='flex  items-center justify-between h-full w-full py-20 px-6'>
+        <div className='flex  items-center justify-between h-full w-full py-20 '>
             {/* left */}
-            <div className=' h-full flex  justify-center max-sm:hidden
+            <div className=' h-full flex  justify-center  
                 '
                 style={{
-                    width: "5vw",
+                    width: window.innerHeight * (8/100),
                 }}
             >
 
@@ -46,12 +46,19 @@ const Setting: React.FC<Props> = ({ children }) => {
                     duration: 0.1,
                 }}
             >
-                <Separator.Root decorative className='h-full w-full rounded' style={{
+                <Separator.Root decorative className='h-full  rounded' style={{
                     backgroundColor: theme.primaryColor,
+                    width: "2px"
                 }} />
             </motion.div>
             {/* right */}
-            <div className=' w-full h-full flex items-center justify-center'>
+            <div className='h-full flex items-center justify-center flex-col
+            '
+            style={{
+                width: window.innerWidth - window.innerHeight * (8/100),
+            }}
+            >
+
                 {children}
             </div>
         </div>

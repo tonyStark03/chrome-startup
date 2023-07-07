@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
+import {  storeThemeInLocalStorage } from "../../app/handlingDatabase";
+import { changeBackground } from "../background/backgroundSlice";
 
-interface themeSliceProps {
-    backgroundType: string;
+export interface themeSliceProps {
+    backgroundType: "image" | "video" | "color" | "gradient";
     backgroundValue: string;
     backgroundBlur: string;
     textColor: string;
@@ -24,7 +26,7 @@ const initialState: themeSliceProps = {
     borderColor: "#808080",
     borderRadius: "10",
     navBlur: "10",
-    fontFamily: `Dancing+Script`,
+    fontFamily: `Regular`,
     backgroundColor: "#333333",
     displaySetting: true,
 };
@@ -34,6 +36,7 @@ export const themeSlice = createSlice({
     initialState,
     reducers: {
         changeTheme: (state, action: PayloadAction<themeSliceProps>) => {
+            storeThemeInLocalStorage(action.payload);
             state.backgroundType = action.payload.backgroundType;
             state.backgroundValue = action.payload.backgroundValue;
             state.backgroundBlur = action.payload.backgroundBlur;
