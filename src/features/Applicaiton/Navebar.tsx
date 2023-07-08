@@ -11,7 +11,12 @@ import {
 } from "./navbarSlice"
 import { Opacity, WidthFull } from '@mui/icons-material';
 import { useRef, useState } from 'react';
+import ImageList from './ImageList';
 import Setting from './Setting'
+import HorizontalList from './HorizontalList';
+import VideoList from './VideoList';
+import ColorList from './ColorList';
+import GradientList from './GradientList';
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -30,8 +35,14 @@ const Navebar: React.FC = () => {
                 }}
             >
                 {/* left part */}
-                <div className='flex flex-auto items-center justify-center'>
-
+                <div className='flex flex-auto items-center justify-center '
+                    style={{
+                        fontSize: "160%",
+                        fontWeight: "bold",
+                        color: "#fff",
+                    }}
+                >
+                    TITLE
                 </div>
                 {/* middlepart */}
                 <div className='flex flex-auto items-center justify-center'>
@@ -52,7 +63,7 @@ const Navebar: React.FC = () => {
                             navState === 2 ? dispatch(changeNavbarState(0)) : dispatch(changeNavbarState(2))
                         }}
                     >
-                        F/Q
+                        FAQ
                     </button>
                 </div>
             </div>
@@ -90,7 +101,15 @@ const Navebar: React.FC = () => {
                             navState === 1 &&
                             <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
                             ' >
-                                <Card heading='Background' subHeading='Change your background'><Setting>""</Setting></Card>
+                                {/* BACKGORUND */}
+                                <Card heading='Background' subHeading='Change your background'><Setting>
+
+                                    <HorizontalList><ImageList /></HorizontalList>
+                                    <HorizontalList><VideoList/></HorizontalList>
+                                    <HorizontalList><GradientList/></HorizontalList>
+                                    <HorizontalList><ColorList/></HorizontalList>
+                                </Setting></Card>
+                                {/* THEME */}
                                 <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>
                                 <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>
 

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
-
 export interface BackgroundState {
     type: "image" | "video" | "color" | "gradient";
     value: string;
