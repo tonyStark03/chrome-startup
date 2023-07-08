@@ -1,5 +1,5 @@
 import React from 'react'
-import { getLocalVideo } from '../../app/handlingDatabase'
+import { getLocalImage144p } from '../../app/handlingDatabase'
 import { motion } from 'framer-motion'
 import { useAppDispatch } from '../../app/hooks'
 import { changeTheme } from '../theme/themeSlice'
@@ -10,41 +10,32 @@ interface Props {
 }
 const Video: React.FC<Props> = ({ id }) => {
     const [data, setData] = React.useState<string>('')
-    const videoRef = React.useRef<HTMLVideoElement>(null)
     const currentState = store.getState().theme
     React.useEffect(() => {
         const t = async () => {
-            const d = await getLocalVideo(id).then((res: ArrayBuffer | null) => {
+            getLocalImage144p(String(id)).then((res: ArrayBuffer | null) => {
                 if (res === null) return '';
-                const typedArray = new Uint8Array(res);
+                let typedArray = new Uint8Array(res);
                 const dataURL = window.URL.createObjectURL(new Blob([typedArray]));
-                videoRef.current?.setAttribute('src', dataURL);
+                setData(dataURL)
             })
-
         }
         t();
-        videoRef.current?.pause()
     }
         , [])
-    const handleMouseEnter = () => {
-
-        if (videoRef.current === null) return;
-        var isPlaying = videoRef.current.currentTime > 0 && !videoRef.current.paused && !videoRef.current.ended
-            && videoRef.current.readyState > videoRef.current.HAVE_CURRENT_DATA;
-
-        if (!isPlaying) {
-            videoRef.current?.play()
-        }
-
-    }
-    const handleMouseLeave = () => {
-        videoRef.current?.pause()
-        if (videoRef.current === null) return;
-        videoRef.current.currentTime = 0
-    }
     const dispatch = useAppDispatch();
     return (
-        <motion.video loop muted playsInline preload='auto'
+        <motion.div
+            initial={{
+                scale: 0,
+            }}
+            animate={{
+                scale: 1,
+                transition: {
+                    delay: 0.2,
+                    duration: 0.2
+                }
+            }}
             onClick={() => {
                 dispatch(changeTheme({
                     ...currentState,
@@ -56,10 +47,6 @@ const Video: React.FC<Props> = ({ id }) => {
                     value: String(id)
                 }))
             }}
-            ref={videoRef}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            src={`data:video/mp4;base64,${data}`}
             whileHover={{
                 scale: 21 / 20,
                 x: "0.5rem",
@@ -70,6 +57,10 @@ const Video: React.FC<Props> = ({ id }) => {
                 ease: 'easeInOut',
             }}
             style={{
+                backgroundImage: `url(${data})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
                 height: "14rem",
                 width: '20rem',
                 display: 'inline-block',
@@ -78,7 +69,8 @@ const Video: React.FC<Props> = ({ id }) => {
             }}
             className='w-full h-full'
         >
-        </motion.video>
+        </motion.div>
+
     )
 }
 

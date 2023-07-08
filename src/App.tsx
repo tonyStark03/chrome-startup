@@ -12,7 +12,19 @@ import {
     selectTheme, changeTheme
 } from './features/theme/themeSlice'
 import Application from './features/Applicaiton/Application';
-import { getThemeFromLocalStorage } from './app/handlingDatabase'
+import { getThemeFromLocalStorage,addGradient } from './app/handlingDatabase'
+// const Gradient = [
+//     "#FF3CAC-#784BA0",
+//     "#F953C6-#B91D73",
+//     "#EEAD92-#6018DC",
+//     "#F6D242-#FF52E5",
+//     "#FAD961-#F76B1C",
+//     "#FFD271-#FFB800",
+//     "#A0FE65-#FA016D",
+// ]
+// Gradient.forEach(e => {
+//     addGradient(e)
+// });
 const App = () => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
@@ -26,8 +38,8 @@ const App = () => {
             } else {
                 dispatch(changeTheme(themeData));
                 dispatch(changeBackground({
-                    type:themeData.backgroundType,
-                    value:themeData.backgroundValue
+                    type: themeData.backgroundType,
+                    value: themeData.backgroundValue
                 }))
             }
         }
@@ -64,6 +76,11 @@ const App = () => {
             <Background />
             {/* <input type='file' multiple accept='video/*'
                 onChange={(e) => { addLocalVideo(e) }}
+                className='translate-y-60
+                '
+            /> */}
+             {/* <input type='file' multiple accept='image/*'
+                onChange={(e) => { addLocalImage(e) }}
                 className='translate-y-60
                 '
             /> */}

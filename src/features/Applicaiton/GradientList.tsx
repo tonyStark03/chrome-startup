@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
-import { getLocalVideoList } from '../../app/handlingDatabase'
-import Video from './Video'
-import Image from './Image'
-const VideoList: React.FC = () => {
-    const [videoList, setVideoList] = React.useState<IDBValidKey[]>([])
+import { getGradientList } from '../../app/handlingDatabase'
+import Gradient from './Gradient'
+
+const GradientList:React.FC = () => {
+    const [gradientList, setGradientList] = React.useState<IDBValidKey[]>([])
     useEffect(() => {
         const t = async () => {
-            const list = await getLocalVideoList()
-            setVideoList(list
+            const list = await getGradientList()
+            setGradientList(list
                 // .slice(0, 4)
             )
             console.log(list)
         }
         t();
     }, [])
-    return (
-        <div className='w-full flex flex-row overflow-x-scroll  h-full no-scrollbar 
+  return (
+    <div className='w-full flex flex-row overflow-x-scroll  h-full no-scrollbar 
             '
             style={{
                 scrollSnapAlign: 'start',
@@ -24,16 +24,16 @@ const VideoList: React.FC = () => {
                 overflow: 'hidden',
             }}
         >
-            {videoList.map((imageId, index) => {
+            {gradientList.map((gradientId, index) => {
                 return (
-                    <Video id={imageId}
+                    <Gradient id={String(gradientId)}
                         key={index}
                     />
                 )
             }
             )}
         </div>
-    )
+  )
 }
 
-export default VideoList
+export default GradientList

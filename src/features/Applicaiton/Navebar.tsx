@@ -15,6 +15,8 @@ import ImageList from './ImageList';
 import Setting from './Setting'
 import HorizontalList from './HorizontalList';
 import VideoList from './VideoList';
+import ColorList from './ColorList';
+import GradientList from './GradientList';
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -104,6 +106,8 @@ const Navebar: React.FC = () => {
 
                                     <HorizontalList><ImageList /></HorizontalList>
                                     <HorizontalList><VideoList/></HorizontalList>
+                                    <HorizontalList><GradientList/></HorizontalList>
+                                    <HorizontalList><ColorList/></HorizontalList>
                                 </Setting></Card>
                                 {/* THEME */}
                                 <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>

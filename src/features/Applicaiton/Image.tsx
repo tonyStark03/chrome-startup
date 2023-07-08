@@ -1,5 +1,5 @@
-import React from 'react'
-import { getLocalImage } from '../../app/handlingDatabase'
+import React, { useEffect } from 'react'
+import { getLocalImage144p } from '../../app/handlingDatabase'
 import { motion, useAnimationControls } from 'framer-motion'
 import { store } from '../../app/store'
 import { useAppDispatch } from '../../app/hooks'
@@ -14,9 +14,9 @@ const Image: React.FC<Props> = ({ id }) => {
     const dispatch = useAppDispatch();
     React.useEffect(() => {
         const t = async () => {
-            const d = await getLocalImage(id).then((res: ArrayBuffer | null) => {
-                if (res === null) return '';
+            const d = await getLocalImage144p(String(id)).then((res: ArrayBuffer) => {
                 const typedArray = new Uint8Array(res);
+                console.log(typedArray)
                 const dataURL = window.URL.createObjectURL(new Blob([typedArray]));
                 setData(dataURL);
             })
@@ -28,6 +28,16 @@ const Image: React.FC<Props> = ({ id }) => {
     return (
 
         <motion.div
+            initial={{
+                scale: 0,
+            }}
+            animate={{
+                scale: 1,
+                transition: {
+                    delay: 0.2,
+                    duration: 0.2
+                }
+            }}
             onClick={() => {
                 dispatch(changeTheme({
                     ...currentState,

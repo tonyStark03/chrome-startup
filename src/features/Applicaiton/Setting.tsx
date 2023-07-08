@@ -52,7 +52,7 @@ const Setting: React.FC<Props> = ({ children }) => {
                 }} />
             </motion.div>
             {/* right */}
-            <div className='h-full flex items-center justify-center flex-col
+            <div className='h-full overflow-y-auto  no-scrollbar
             '
             style={{
                 width: window.innerWidth - window.innerHeight * (8/100),

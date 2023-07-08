@@ -4,13 +4,15 @@ import Image from './Image'
 interface Props {
     children?: React.ReactNode
 }
-const HorizontalList: React.FC<Props> = ({children}) => {
+const HorizontalList: React.FC<Props> = ({ children }) => {
     return (
         <div className='
         '
             style={{
                 height: '33%',
                 width: '100%',
+                overflow:"",
+                flex:"0 0 auto"
                 }}
         >
             {children}

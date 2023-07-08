@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import { getLocalVideoList } from '../../app/handlingDatabase'
-import Video from './Video'
-import Image from './Image'
-const VideoList: React.FC = () => {
-    const [videoList, setVideoList] = React.useState<IDBValidKey[]>([])
+import { getSolidColorList } from '../../app/handlingDatabase'
+import Color from './Color'
+
+const ColorList: React.FC = () => {
+    const [colorList, setColorList] = React.useState<IDBValidKey[]>([])
     useEffect(() => {
         const t = async () => {
-            const list = await getLocalVideoList()
-            setVideoList(list
+            const list = await getSolidColorList()
+            setColorList(list
                 // .slice(0, 4)
             )
             console.log(list)
@@ -24,9 +24,9 @@ const VideoList: React.FC = () => {
                 overflow: 'hidden',
             }}
         >
-            {videoList.map((imageId, index) => {
+            {colorList.map((colorId, index) => {
                 return (
-                    <Video id={imageId}
+                    <Color id={String(colorId)}
                         key={index}
                     />
                 )
@@ -36,4 +36,4 @@ const VideoList: React.FC = () => {
     )
 }
 
-export default VideoList
+export default ColorList

@@ -1,5 +1,6 @@
 import React from "react";
 import { themeSliceProps } from "../features/theme/themeSlice";
+import { resolve } from "path";
 
 export const changeImageQualityTo144p = (
     imageData: ArrayBuffer
@@ -41,56 +42,52 @@ export const changeImageQualityTo144p = (
                     };
                 },
                 "image/jpeg",
-                0.5
+                0.8
             );
         };
     });
 };
 
-export const changeVideoQualityTo144p = ( videoData: ArrayBuffer): Promise<ArrayBuffer | null> => {
-    // returns video(scaled to 144p) with same aspect ratio
+export const getFirstFrameOfVideo = (
+    videoData: ArrayBuffer
+): Promise<ArrayBuffer | null> => {
     return new Promise<ArrayBuffer | null>((resolve, reject) => {
-        const video = document.createElement("video");
-        video.src = URL.createObjectURL(new Blob([videoData]));
-        video.onloadedmetadata = () => {
+        const videoBlob = new Blob([videoData], { type: "video/mp4" });
+        const videoURL = URL.createObjectURL(videoBlob);
+
+        const videoElement = document.createElement("video");
+        videoElement.preload = "metadata";
+
+        videoElement.addEventListener("canplaythrough", () => {
+            const desiredResolution = { width: 256, height: 144 };
+
+            const aspectRatio =
+                videoElement.videoWidth / videoElement.videoHeight;
+            const width = desiredResolution.width;
+            const height = Math.floor(width / aspectRatio);
+
             const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            if (ctx === null) {
-                resolve(null);
+            canvas.width = width;
+            canvas.height = height;
+
+            const context = canvas.getContext("2d");
+            if (!context) {
+                reject("Canvas context is not available.");
                 return;
             }
-            const width = video.videoWidth;
-            const height = video.videoHeight;
-            const aspectRatio = width / height;
-            const newWidth = 256 * aspectRatio;
-            const newHeight = 256;
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            ctx.drawImage(video, 0, 0, newWidth, newHeight);
-            canvas.toBlob(
-                (blob) => {
-                    if (blob === null) {
-                        resolve(null);
-                        return;
-                    }
-                    const reader = new FileReader();
-                    reader.readAsArrayBuffer(blob);
-                    reader.onloadend = () => {
-                        const data = reader.result;
-                        if (data === null || typeof data === "string") {
-                            resolve(null);
-                            return;
-                        }
-                        resolve(data);
-                    };
-                },
-                "video/mp4",
-                0.5
-            );
-        };
+
+            context.drawImage(videoElement, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+                URL.revokeObjectURL(videoURL);
+                resolve(blob ? blob.arrayBuffer() : null);
+            }, "image/jpeg");
+        });
+
+        videoElement.src = videoURL;
+        videoElement.play();
     });
 };
-
 
 export const createDatabase = () => {
     // database to store images
@@ -121,11 +118,6 @@ export const createDatabase = () => {
             { unique: true }
         );
         db.createObjectStore("lowResImages", { keyPath: "id" }).createIndex(
-            "data",
-            "data",
-            { unique: true }
-        );
-        db.createObjectStore("lowResVideos", { keyPath: "id" }).createIndex(
             "data",
             "data",
             { unique: true }
@@ -222,56 +214,6 @@ export const deleteGradientFromDatabase = (id: string) => {
     };
 };
 
-
-export const addLocalVideo144p = (
-    id: string,
-    videoData: ArrayBuffer | null
-) => {
-    // add video to database
-    let req = indexedDB.open("backgroundData", 1);
-    req.onsuccess = () => {
-        let db = req.result;
-        let tx = db.transaction("lowResVideos", "readwrite");
-        let store = tx.objectStore("lowResVideos");
-        let reqAdd = store.put({
-            id: id,
-            data: videoData,
-        });
-        reqAdd.onsuccess = () => {
-            console.log("Video added to DB");
-        };
-        reqAdd.onerror = () => {
-            console.log("Error adding video to DB");
-        };
-    };
-};
-
-export const getLocalVideo144p = (id: string) => {
-    return new Promise<ArrayBuffer | null>((resolve, reject) => {
-        let req = indexedDB.open("backgroundData", 1);
-        req.onsuccess = () => {
-            let db = req.result;
-            let tx = db.transaction("lowResVideos", "readonly");
-            let store = tx.objectStore("lowResVideos");
-            let reqGet = store.get(id);
-            reqGet.onsuccess = () => {
-                let data = reqGet.result;
-                if (data === undefined) {
-                    resolve(null);
-                    return;
-                }
-                resolve(data.data);
-            };
-            reqGet.onerror = () => {
-                resolve(null);
-            };
-        };
-        req.onerror = () => {
-            resolve(null);
-        };
-    });
-};
-
 export const addLocalImage144p = (
     id: string,
     imageData: ArrayBuffer | null
@@ -296,7 +238,7 @@ export const addLocalImage144p = (
 };
 
 export const getLocalImage144p = (id: string) => {
-    return new Promise<ArrayBuffer | null>((resolve, reject) => {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
         let req = indexedDB.open("backgroundData", 1);
         req.onsuccess = () => {
             let db = req.result;
@@ -305,7 +247,7 @@ export const getLocalImage144p = (id: string) => {
             let reqGet = store.get(id);
             reqGet.onsuccess = () => {
                 if (reqGet.result === undefined) {
-                    resolve(null);
+                    resolve(new ArrayBuffer(0));
                 } else {
                     resolve(reqGet.result.data);
                 }
@@ -423,11 +365,17 @@ export const addLocalVideo = (event: React.ChangeEvent<HTMLInputElement>) => {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
-        reader.onload = function (event) {
+        reader.onload = async function (event) {
             const binaryData = event.target?.result;
-            if (binaryData === null) {
+            if (
+                binaryData === null ||
+                typeof binaryData === "string" ||
+                binaryData === undefined
+            ) {
                 return;
             }
+            let image = await getFirstFrameOfVideo(binaryData);
+            addLocalImage144p(file.name, image);
             let req = indexedDB.open("backgroundData", 1);
             req.onsuccess = () => {
                 let db = req.result;

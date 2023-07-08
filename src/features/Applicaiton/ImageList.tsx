@@ -12,6 +12,10 @@ const ImageList:React.FC = () => {
         }
         t();
     }, [])
+    useEffect(() => {
+        console.log(imageList)
+
+    }, [imageList])
     return (
         <div className='w-full flex flex-row overflow-x-scroll  h-full no-scrollbar 
             '
@@ -19,7 +23,7 @@ const ImageList:React.FC = () => {
                 scrollSnapAlign: 'start',
                 scrollSnapType: 'x mandatory',
                 scrollBehavior: 'smooth',
-                overflow: 'visible',
+                overflow: 'hidden',
             }}
         >
             {imageList.map((imageId,index) => {
