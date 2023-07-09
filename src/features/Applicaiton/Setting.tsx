@@ -47,7 +47,7 @@ const Setting: React.FC<Props> = ({ children }) => {
                 }}
             >
                 <Separator.Root decorative className='h-full  rounded' style={{
-                    backgroundColor: theme.primaryColor,
+                    backgroundColor: theme.textColor,
                     width: "2px"
                 }} />
             </motion.div>

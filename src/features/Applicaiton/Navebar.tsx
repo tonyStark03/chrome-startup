@@ -17,6 +17,7 @@ import HorizontalList from './HorizontalList';
 import VideoList from './VideoList';
 import ColorList from './ColorList';
 import GradientList from './GradientList';
+import Themes from './Theme';
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -87,10 +88,11 @@ const Navebar: React.FC = () => {
                         }}
                         transition={{
                             duration: 0.1,
+                            delay: 0.1,
                             ease: "easeInOut",
                         }
                         }
-                        initial={{ y: -150 }}
+                        initial={{ y: "-100%" }}
                         animate={{
                             y: "6.5vh",
                             boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0.5)`,
@@ -105,9 +107,9 @@ const Navebar: React.FC = () => {
                                 <Card heading='Background' subHeading='Change your background'><Setting>
 
                                     <HorizontalList><ImageList /></HorizontalList>
-                                    <HorizontalList><VideoList/></HorizontalList>
-                                    <HorizontalList><GradientList/></HorizontalList>
-                                    <HorizontalList><ColorList/></HorizontalList>
+                                    <HorizontalList><VideoList /></HorizontalList>
+                                    <HorizontalList><GradientList /></HorizontalList>
+                                    <HorizontalList><ColorList /></HorizontalList>
                                 </Setting></Card>
                                 {/* THEME */}
                                 <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>

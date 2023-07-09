@@ -20,7 +20,7 @@ const Application: React.FC = () => {
                 </div>
                 {/* seprator */}
                 <Separator.Root decorative className=' w-2 h-5/6 rounded max-sm:hidden' style={{
-                    backgroundColor: theme.primaryColor,
+                    backgroundColor: theme.textColor,
                 }} />
                 {/* right */}
                 <div className=' w-full h-full flex items-center justify-center'>

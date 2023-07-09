@@ -168,15 +168,15 @@ export const deleteVideoFromDatabase = (id: string) => {
         reqDelete.onerror = () => {
             console.log("Error deleting video from DB");
         };
-        let tx2 = db.transaction("lowResVideos", "readwrite");
-        let store2 = tx2.objectStore("lowResVideos");
+        let tx2 = db.transaction("lowResImages", "readwrite");
+        let store2 = tx2.objectStore("lowResImages");
         let reqDelete2 = store2.delete(id);
         reqDelete2.onsuccess = () => {
             console.log("Video deleted from DB");
-        };
+        }
         reqDelete2.onerror = () => {
             console.log("Error deleting video from DB");
-        };
+        }
     };
 };
 
