@@ -25,3 +25,6 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
+::file-selector-button {
+    display: none;
+}
