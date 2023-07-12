@@ -6,6 +6,7 @@ import { changeTheme } from '../theme/themeSlice'
 import { changeBackground } from '../background/backgroundSlice'
 import { store } from '../../app/store'
 import * as ContextMenu from '@radix-ui/react-context-menu';
+import { changeViewBackground } from '../viewBackground/viewBackgroundSlice'
 
 interface Props {
     id: IDBValidKey,
@@ -27,6 +28,13 @@ const Video: React.FC<Props> = ({ id, delay, deleteItem }) => {
         t();
     }
         , [])
+    const viewFullSize = () => {
+        dispatch(changeViewBackground({
+            active: true,
+            type: "video",
+            value: String(id),
+        }))
+    }
     const dispatch = useAppDispatch();
     return (
         <ContextMenu.Root>
@@ -43,17 +51,7 @@ const Video: React.FC<Props> = ({ id, delay, deleteItem }) => {
                             duration: 0.2
                         }
                     }}
-                    onClick={() => {
-                        dispatch(changeTheme({
-                            ...currentState,
-                            backgroundType: 'video',
-                            backgroundValue: String(id)
-                        }))
-                        dispatch(changeBackground({
-                            type: 'video',
-                            value: String(id)
-                        }))
-                    }}
+                    onClick={viewFullSize}
                     whileHover={{
                         scale: 21 / 20,
                         x: "0.5rem",
@@ -83,7 +81,9 @@ const Video: React.FC<Props> = ({ id, delay, deleteItem }) => {
                 '
                 >
                     <ContextMenu.Item className="hover:bg-[#7C81E3] rounded-md px-1 py-1
-                    ">
+                    "
+                    onClick={viewFullSize}
+                    >
                         View
                     </ContextMenu.Item>
 

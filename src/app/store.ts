@@ -3,12 +3,14 @@ import counterReducer from "../features/counter/counterSlice";
 import backgroundReducer from "../features/background/backgroundSlice";
 import themeReducer from "../features/theme/themeSlice"
 import  navbarReducer  from "../features/Applicaiton/navbarSlice";
+import viewBackground from "../features/viewBackground/viewBackgroundSlice";
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
         background: backgroundReducer,
         theme: themeReducer,
-        navbar:navbarReducer
+        navbar:navbarReducer,
+        viewBackground:viewBackground
     },
 });
 

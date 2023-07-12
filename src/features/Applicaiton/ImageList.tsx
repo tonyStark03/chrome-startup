@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 const ImageList: React.FC = () => {
     const [imageList, setImageList] = React.useState<IDBValidKey[]>([])
     const [newimageList, setNewImageList] = React.useState<IDBValidKey[]>([])
+    const [loaded, setLoaded] = React.useState(false)
     const deleteItem = (id: IDBValidKey) => {
         setImageList(imageList.filter((item) => item !== id))
     }
@@ -16,13 +17,14 @@ const ImageList: React.FC = () => {
                 // .slice(0, 4)
             )
         }
-        t();
-    }, [])
-    useEffect(() => {
-        console.log(imageList)
+        t().then(
+            () => {
 
-    }, [imageList])
-    function hashCode(str: string) {
+                setLoaded(true)
+            }
+        )
+    }, [])
+    function hashCode(str:string) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
@@ -31,6 +33,10 @@ const ImageList: React.FC = () => {
         }
         return hash;
     }
+    useEffect(() => {
+        console.log(imageList)
+
+    }, [imageList])
 
     const inputEl = React.useRef<HTMLInputElement>(null);
     return (
@@ -44,7 +50,19 @@ const ImageList: React.FC = () => {
             }}
         >{ }
             {
-                imageList.length + newimageList.length < 10 &&
+                imageList.map((imageId, index) => {
+                    return (
+                        <Image id={imageId}
+                            key={hashCode(imageId.toString())}
+                            delay={index * 0.2}
+                            deleteItem={deleteItem}
+                        />
+                    )
+                }
+                )
+            }
+            {
+                imageList.length + newimageList.length < 10 && loaded &&
                 (
                     <>
                         <input
@@ -62,7 +80,7 @@ const ImageList: React.FC = () => {
                                     if (LIST.length > imageList.length) {
                                         let diff = LIST.filter(element => !imageList.includes(element))
                                         let newdiff = diff.filter(element => !newimageList.includes(element))
-                                        setImageList([...newdiff, ...imageList])
+                                        setImageList([...imageList, ...newdiff,])
                                         f = false
                                     }
                                 }
@@ -78,7 +96,8 @@ const ImageList: React.FC = () => {
                             animate={{
                                 scale: 1,
                                 transition: {
-                                    duration: 0.2
+                                    duration: 0.2,
+                                    delay: 0.2 * imageList.length,
                                 }
                             }}
                             whileHover={{
@@ -110,14 +129,14 @@ const ImageList: React.FC = () => {
                                     scale: 1,
                                     rotate: 90,
                                     transition: {
-                                        duration: 0.2
+                                        duration: 0.2,
                                     }
                                 }}
                                 whileHover={{
                                     scale: 21 / 20,
                                     rotate: 180,
                                     transition: {
-                                        duration: 0.2
+                                        duration: 0.2,
                                     }
                                 }}
                                 className='w-full h-full flex justify-center items-center'
@@ -129,18 +148,6 @@ const ImageList: React.FC = () => {
                         </motion.div>
                     </>
 
-                )
-            }
-            {
-                imageList.map((imageId, index) => {
-                    return (
-                        <Image id={imageId}
-                            key={hashCode(imageId.toString())}
-                            delay={index * 0.2}
-                            deleteItem={deleteItem}
-                        />
-                    )
-                }
                 )
             }
         </div>

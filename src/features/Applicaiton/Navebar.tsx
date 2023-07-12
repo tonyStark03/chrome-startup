@@ -104,15 +104,60 @@ const Navebar: React.FC = () => {
                             <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
                             ' >
                                 {/* BACKGORUND */}
-                                <Card heading='Background' subHeading='Change your background'><Setting>
+                                <Card heading='Background' subHeading='Change your background'>
+                                    <Setting>
+                                        <div className='flex flex-col items-center w-full px-1
+                                    '>
+                                            <div className='text-white text-6xl font-bold mb-4 w-full justify-start flex px-1
+                                        '>
+                                                BACKGROUNDS
+                                            </div>
+                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        '
+                                            >
+                                                Change your background
+                                            </div>
+                                        </div>
 
-                                    <HorizontalList><ImageList /></HorizontalList>
-                                    <HorizontalList><VideoList /></HorizontalList>
-                                    <HorizontalList><GradientList /></HorizontalList>
-                                    <HorizontalList><ColorList /></HorizontalList>
-                                </Setting></Card>
+                                        <HorizontalList><ImageList /></HorizontalList>
+                                        <div className='flex flex-col items-center w-full px-1
+                                    '>
+                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        '>
+                                                Wallpapers
+                                            </div>
+                                        </div>
+                                        <HorizontalList><VideoList /></HorizontalList>
+                                        <div className='flex flex-col items-center w-full px-1
+                                    '>
+                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        '>
+                                                LIVE Wallpapers
+                                            </div>
+                                        </div>
+                                        <HorizontalList><GradientList /></HorizontalList>
+                                        <div className='flex flex-col items-center w-full px-1
+                                    '>
+                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        '>
+                                                Gradient
+                                            </div>
+                                        </div>
+                                        <HorizontalList><ColorList /></HorizontalList>
+                                        <div className='flex flex-col items-center w-full px-1
+                                    '>
+                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        '>
+                                                Solid Color
+                                            </div>
+                                        </div>
+                                    </Setting></Card>
                                 {/* THEME */}
-                                <Card heading='Theme' subHeading='Change Font, Text Color etc.'><Setting>""</Setting></Card>
+                                <Card heading='Theme' subHeading='Change Font, Text Color etc.'>
+                                    <Setting>
+                                        <Themes />
+                                    </Setting>
+                                </Card>
                                 <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>
 
                             </div>

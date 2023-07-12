@@ -6,12 +6,13 @@ import { useAppDispatch } from '../../app/hooks'
 import { changeTheme } from '../theme/themeSlice'
 import { changeBackground } from '../background/backgroundSlice'
 import * as ContextMenu from '@radix-ui/react-context-menu';
+import { changeViewBackground } from '../viewBackground/viewBackgroundSlice'
 interface Props {
     id: IDBValidKey,
     delay: number,
     deleteItem: (id: IDBValidKey) => void
 }
-const Image: React.FC<Props> = ({ id, delay,deleteItem }) => {
+const Image: React.FC<Props> = ({ id, delay, deleteItem }) => {
     const [data, setData] = React.useState<string>('')
     const currentState = store.getState().theme
     const dispatch = useAppDispatch();
@@ -28,6 +29,13 @@ const Image: React.FC<Props> = ({ id, delay,deleteItem }) => {
         t();
     }
         , [])
+    const viewFullSize = () => {
+        dispatch(changeViewBackground({
+            active: true,
+            type: "image",
+            value: String(id),
+        }))
+    }
     return (
         <ContextMenu.Root>
             <ContextMenu.Trigger className="ContextMenuTrigger">
@@ -52,6 +60,7 @@ const Image: React.FC<Props> = ({ id, delay,deleteItem }) => {
                         duration: 0.5,
                         ease: 'easeInOut',
                     }}
+                    onClick={viewFullSize}
                     style={{
                         backgroundImage: `url(${data})`,
                         backgroundSize: 'cover',
@@ -71,8 +80,11 @@ const Image: React.FC<Props> = ({ id, delay,deleteItem }) => {
                 <ContextMenu.Content className='text-white bg-gray-800 rounded-md p-2 
                 '
                 >
+
                     <ContextMenu.Item className="hover:bg-[#7C81E3] rounded-md px-1 py-1
-                    ">
+                    "
+                        onClick={viewFullSize}
+                    >
                         View
                     </ContextMenu.Item>
 

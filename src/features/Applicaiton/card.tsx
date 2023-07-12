@@ -1,7 +1,6 @@
 import Person4Icon from "@mui/icons-material/Person4";
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useAnimationControls, useMotionValue } from "framer-motion";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { changeNavbarState } from "./navbarSlice";
 import { selectNavbar } from "./navbarSlice";

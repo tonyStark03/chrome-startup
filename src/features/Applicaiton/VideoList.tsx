@@ -6,6 +6,7 @@ import { HiPlus } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 const VideoList: React.FC = () => {
     const [videoList, setVideoList] = React.useState<IDBValidKey[]>([])
+    const [loaded, setLoaded] = React.useState(false)
     useEffect(() => {
         const t = async () => {
             const list = await getLocalVideoList()
@@ -13,7 +14,9 @@ const VideoList: React.FC = () => {
                 // .slice(0, 4)
             )
         }
-        t();
+        t().then(() => {
+            setLoaded(true)
+        })
     }, [])
     const [newimageList, setNewImageList] = React.useState<IDBValidKey[]>([])
     function hashCode(str: string) {
@@ -39,8 +42,18 @@ const VideoList: React.FC = () => {
                 overflow: 'hidden',
             }}
         >
+            {videoList.map((videoId, index) => {
+                return (
+                    <Video id={videoId}
+                        key={hashCode(videoId.toString())}
+                        delay={index * 0.2}
+                        deleteItem={deleteItem}
+                    />
+                )
+            }
+            )}
             {
-                videoList.length + newimageList.length < 10 &&
+                videoList.length + newimageList.length < 10 && loaded &&
                 (
                     <>
                         <input
@@ -58,7 +71,7 @@ const VideoList: React.FC = () => {
                                     if (LIST.length > videoList.length) {
                                         let diff = LIST.filter(element => !videoList.includes(element))
                                         let newdiff = diff.filter(element => !newimageList.includes(element))
-                                        setVideoList([...newdiff, ...videoList,])
+                                        setVideoList([...videoList, ...newdiff])
                                         f = false
                                     }
                                 }
@@ -74,7 +87,8 @@ const VideoList: React.FC = () => {
                             animate={{
                                 scale: 1,
                                 transition: {
-                                    duration: 0.2
+                                    duration: 0.2,
+                                    delay: 0.2 * videoList.length,
                                 }
                             }}
                             whileHover={{
@@ -121,22 +135,11 @@ const VideoList: React.FC = () => {
                                 <HiPlus className='text-white text-9xl'
                                 />
                             </motion.div>
-
                         </motion.div>
                     </>
 
                 )
             }
-            {videoList.map((imageId, index) => {
-                return (
-                    <Video id={imageId}
-                        key={hashCode(imageId.toString())}
-                        delay={index * 0.2}
-                        deleteItem={deleteItem}
-                    />
-                )
-            }
-            )}
         </div>
     )
 }
