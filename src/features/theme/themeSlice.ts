@@ -26,7 +26,7 @@ const initialState: themeSliceProps = {
     borderColor: "#808080",
     borderRadius: "10",
     navBlur: "10",
-    fontFamily: `Regular`,
+    fontFamily: `Dancing+Script`,
     backgroundColor: "#333333",
     displaySetting: true,
 };
