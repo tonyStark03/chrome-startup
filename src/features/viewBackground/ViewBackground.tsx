@@ -10,7 +10,6 @@ import { getLocalImage, getLocalVideo } from '../../app/handlingDatabase'
 import { GrClose } from 'react-icons/gr'
 import { changeBackground } from '../background/backgroundSlice';
 import { changeTheme, selectTheme } from '../theme/themeSlice';
-import zIndex from '@mui/material/styles/zIndex';
 
 const ViewBackground: React.FC = () => {
     const theme = useAppSelector(selectTheme)
