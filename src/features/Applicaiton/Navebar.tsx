@@ -18,6 +18,7 @@ import VideoList from './VideoList';
 import ColorList from './ColorList';
 import GradientList from './GradientList';
 import Themes from './Theme';
+import InsideTheme from '../theme/InsideTheme';
 const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
@@ -155,7 +156,7 @@ const Navebar: React.FC = () => {
                                 {/* THEME */}
                                 <Card heading='Theme' subHeading='Change Font, Text Color etc.'>
                                     <Setting>
-                                        <Themes />
+                                        <InsideTheme/>
                                     </Setting>
                                 </Card>
                                 <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>

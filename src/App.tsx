@@ -13,6 +13,10 @@ import {
 } from './features/theme/themeSlice'
 import ViewBackground from './features/viewBackground/ViewBackground';
 import Application from './features/Applicaiton/Application';
+
+
+
+
 import { getThemeFromLocalStorage, addGradient } from './app/handlingDatabase'
 const App = () => {
     let background = useAppSelector(selectBackground);
@@ -78,6 +82,7 @@ const App = () => {
                 onClick={changeBack}
             >change</button> */}
             <Application />
+
             {/* Overlay */}
 
         </div>

@@ -14,7 +14,8 @@ const Setting: React.FC<Props> = ({ children }) => {
     const theme = useAppSelector(selectTheme);
     const dispatch = useAppDispatch();
     return (
-        <div className='flex  items-center justify-between h-full w-full  '>
+        // bg hata diyo
+        <div className='flex bg-slate-400 items-center justify-between h-full w-full  '>
             {/* left */}
             <div className=' h-full flex  justify-center  py-20
                 '
