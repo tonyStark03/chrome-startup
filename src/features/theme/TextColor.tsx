@@ -15,7 +15,7 @@ const TextColor: React.FC = ()=> {
     <Popover.Root>
     <Popover.Trigger asChild>
     
-    <button className=' hover:bg-violet5 items-center justify-center flex w-full pt-1 pb-1 '>
+    <button className=' items-center justify-center flex w-full pt-1 pb-1 '>
 
       <div
         className="flex rounded-full items-center border-none w-[33px] h-[33px]" aria-label="Update dimensions"

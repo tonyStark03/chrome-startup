@@ -22,6 +22,7 @@ const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
     const [isMainScreen, setIsMainScreen] = useState(false);
     const mainScreenAnimation = useAnimationControls();
     const fadeAwayAnimation = useAnimationControls();
+    const [flag, setFlag] = useState(true);
     useEffect(() => {
         console.log(isHovering)
         controls.start({
@@ -49,6 +50,8 @@ const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
             }}
             animate={mainScreenAnimation}
             onClick={() => {
+                if(!flag)return
+                setFlag (false)
                 mainScreenAnimation.start({
                     position: "absolute",
                     x: (element && element.current) ? element.current.getBoundingClientRect().x : 0,
