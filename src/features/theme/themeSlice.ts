@@ -13,22 +13,32 @@ export interface themeSliceProps {
     borderRadius: string;
     navBlur: string;
     fontFamily: string;
+    utilityIsActive: boolean;
     backgroundColor: string;
     displaySetting: boolean;
+    utilityIsDateActive: boolean;
+    utilityIsTimeActive: boolean;
+    fontSize: number;
+    
 }
 
-const initialState: themeSliceProps = {
+export const initialState: themeSliceProps = {
     backgroundType: "color",
     backgroundValue: "#ffffff",
     backgroundBlur: "0",
+    utilityIsActive: true,
     textColor: "#ffffff",
-    primaryColor: "#c40042",
+    primaryColor: "#7C81E3",
     borderColor: "#808080",
     borderRadius: "10",
     navBlur: "10",
     fontFamily: `Dancing+Script`,
     backgroundColor: "#333333",
     displaySetting: true,
+    utilityIsDateActive: true,
+    utilityIsTimeActive: true,
+    
+    fontSize: 20,
 };
 
 export const themeSlice = createSlice({
@@ -47,6 +57,10 @@ export const themeSlice = createSlice({
             state.navBlur = action.payload.navBlur;
             state.fontFamily = action.payload.fontFamily;
             state.backgroundColor = action.payload.backgroundColor;
+            state.utilityIsActive = action.payload.utilityIsActive;
+            state.displaySetting = action.payload.displaySetting;
+            state.utilityIsDateActive = action.payload.utilityIsDateActive;
+            state.utilityIsTimeActive = action.payload.utilityIsTimeActive;
         },
     },
 });

@@ -15,7 +15,7 @@ const Setting: React.FC<Props> = ({ children }) => {
     const dispatch = useAppDispatch();
     return (
         // bg hata diyo
-        <div className='flex bg-slate-400 items-center justify-between h-full w-full  '>
+        <div className='flex bg-black items-center justify-between h-full w-full  '>
             {/* left */}
             <div className=' h-full flex  justify-center  py-20
                 '

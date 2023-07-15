@@ -562,5 +562,5 @@ export const getThemeFromLocalStorage = () => {
     if (data === null) {
         return undefined;
     }
-    return JSON.parse(data) as themeSliceProps;
+    return JSON.parse(data);
 };

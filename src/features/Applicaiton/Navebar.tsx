@@ -156,7 +156,7 @@ const Navebar: React.FC = () => {
                                 {/* THEME */}
                                 <Card heading='Theme' subHeading='Change Font, Text Color etc.'>
                                     <Setting>
-                                        <InsideTheme/>
+                                        <InsideTheme />
                                     </Setting>
                                 </Card>
                                 <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>

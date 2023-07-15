@@ -9,13 +9,10 @@ import {
     selectBackground,
 } from './features/background/backgroundSlice'
 import {
-    selectTheme, changeTheme
+    selectTheme, changeTheme, themeSliceProps,
 } from './features/theme/themeSlice'
 import ViewBackground from './features/viewBackground/ViewBackground';
 import Application from './features/Applicaiton/Application';
-
-
-
 
 import { getThemeFromLocalStorage, addGradient } from './app/handlingDatabase'
 const App = () => {
@@ -29,7 +26,19 @@ const App = () => {
                 dispatch(changeTheme(theme));
                 // alert("themeData")
             } else {
-                dispatch(changeTheme(themeData));
+                let t = JSON.stringify({ ...theme }).slice(1, -1).split(",");
+                let tD = JSON.stringify({ ...themeData }).slice(1, -1).split(",")
+                for (let i = 0; i < t.length; i++) {
+                    let key = t[i].split(":")[0].slice(1, -1)
+                    for (let j = 0; j < tD.length; j++) {
+                        if (tD[j].includes(key)) {
+                            let value = tD[j].split(":")[1]
+                            t[i] = `"${key}":${value}`
+                        }
+                    }
+                }
+                dispatch(changeTheme(JSON.parse(`{${t.join(",")}}`)));
+                console.log(JSON.stringify(themeData))
                 dispatch(changeBackground({
                     type: themeData.backgroundType,
                     value: themeData.backgroundValue
@@ -68,19 +77,6 @@ const App = () => {
         }}>
             <Background />
             <ViewBackground />
-            {/* <input type='file' multiple accept='video/*'
-                onChange={(e) => { addLocalVideo(e) }}
-                className='translate-y-60
-                '
-            /> */}
-            {/* <input type='file' multiple accept='image/*'
-                onChange={(e) => { addLocalImage(e) }}
-                className='translate-y-60
-                '
-            /> */}
-            {/* <button
-                onClick={changeBack}
-            >change</button> */}
             <Application />
 
             {/* Overlay */}
