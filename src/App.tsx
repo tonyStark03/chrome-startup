@@ -15,6 +15,7 @@ import ViewBackground from './features/viewBackground/ViewBackground';
 import Application from './features/Applicaiton/Application';
 
 import { getThemeFromLocalStorage, addGradient } from './app/handlingDatabase'
+import Slidebar from './features/Components/Slidebar';
 const App = () => {
     let background = useAppSelector(selectBackground);
     const dispatch = useAppDispatch();
@@ -72,16 +73,25 @@ const App = () => {
     }
 
     return (
-        <div className="App" style={{
+    <>
+        {/* <div className="App" style={{
             fontFamily: theme.fontFamily.split('+').join(' '),
         }}>
             <Background />
             <ViewBackground />
-            <Application />
-
-            {/* Overlay */}
-
+        <Application />
+            
+            Overlay
+           
+        </div> */}
+        <div>
+             <Slidebar disabled={false} minValue={0} maxValue={0} initalValue={0} divRefArray={[]}  setValue={function (): void {
+            } } />
         </div>
+        
+       
+    </>
+
     );
 }
 

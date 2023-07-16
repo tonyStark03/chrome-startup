@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { createDatabase } from './app/handlingDatabase';
+import Slidebar from './features/Components/Slidebar';
 
 createDatabase();
 const container = document.getElementById('root')!;
@@ -14,7 +15,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <App/>
     </Provider>
   </React.StrictMode>
 );
