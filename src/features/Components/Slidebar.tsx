@@ -1,67 +1,54 @@
-import React , { useRef } from 'react'
+import React from 'react';
 import { selectTheme } from '../theme/themeSlice';
 import { useAppSelector } from '../../app/hooks';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-
-interface props{
-    disabled: boolean
-    minValue: number
-    maxValue: number
-    initalValue: number
-    divRefArray: React.MutableRefObject<HTMLDivElement>[]
-    setValue: ()=>void
+interface Props {
+    disabled?: boolean;
+    minValue: number;
+    maxValue: number;
+    initialValue: number;
+    divRefArray: React.MutableRefObject<HTMLDivElement>[];
+    setValue: React.Dispatch<React.SetStateAction<number>>; // Add this prop
 }
 
-const Slidebar: React.FC<props>=({disabled, minValue, maxValue, initalValue,divRefArray })=> {
-
+const Slidebar: React.FC<Props> = ({ minValue, maxValue, initialValue, divRefArray, setValue }) => {
     const theme = useAppSelector(selectTheme);
 
     const DivOpacity = () => {
         for (let i = 0; i < divRefArray.length; i++) {
-            divRefArray[i].current.style.opacity = "0.5"
+            divRefArray[i].current.style.opacity = '0.5';
         }
+    };
+
+    function valuetext(value: number, index: number) {
+        return `${value}`;
     }
 
-    function valuetext(value: number) {
-        return `${value}`;
-      }
+    const handleSliderChange = (event: Event, newValue: number | number[]) => {
+        setValue(newValue as number);
+    };
 
-  return (
-    
-    <>
+    return (
+        <>
+            <Box className='max-w-full flex items-center justify-center'>
+                <Slider
+                    sx={{  color: theme.primaryColor, width: '100%' }}
+                    aria-label="number"
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={valuetext}
+                    value={initialValue}
+                    step={1}
+                    min={minValue}
+                    max={maxValue}
+                    onMouseDown={()=>console.log('mouse down')}
+                    onMouseUp={()=>console.log('mouse up')}
+                    onChange={handleSliderChange}
+                />
+            </Box>
+        </>
+    );
+};
 
-    
-    <Box  className='max-w-full flex items-center justify-center h-screen'>
-    <Slider
-    sx={{backgroundColor: theme.primaryColor, color: theme.textColor, width: '80%'}}
-    aria-label="number"
-    // remove from here
-    defaultValue={40}
-    getAriaValueText={valuetext}
-    valueLabelDisplay="on"
-    step={10}
-    marks
-    min={10}
-    max={100}
-    // to here
-    
-    // defaultValue={initalValue}
-    // getAriaValueText={valuetext}
-    // valueLabelDisplay="on"
-    // step={maxValue/minValue}
-    // marks
-    // min={minValue}
-    // max={maxValue}
-    disabled={disabled}
-    onMouseDown={DivOpacity}
-    ></Slider>
-    </Box>
-    
-
-    </>
-  );
-}
-
-export default Slidebar
+export default Slidebar;

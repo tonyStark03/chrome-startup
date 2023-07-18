@@ -48,6 +48,7 @@ const App = () => {
         }
         t();
     }, []);
+    useEffect(() => { document.querySelector("body")?.setAttribute("style", `color:${theme.fontColor}`) }, [theme.fontColor])
     useEffect(() => {
 
         // add theme.fontFamily to head of DOM
@@ -57,41 +58,15 @@ const App = () => {
         link.setAttribute("href", `https://fonts.googleapis.com/css2?family=${theme.fontFamily}&display=swap`)
         head?.appendChild(link)
     }, [theme.fontFamily]);
-    const changeBack = () => {
-        if (background.type === 'color') {
-            dispatch(changeBackground({ type: 'gradient', value: '#6D92CA-#A22AEE' }));
-        }
-        if (background.type === 'gradient') {
-            dispatch(changeBackground({ type: 'image', value: 'Nilou_FlHD.png' }));
-        }
-        if (background.type === 'image') {
-            dispatch(changeBackground({ type: 'video', value: 'pexels-rostislav-uzunov-5680034 (1080p).mp4' }));
-        }
-        if (background.type === 'video') {
-            dispatch(changeBackground({ type: 'color', value: '#ccffcc' }));
-        }
-    }
-
     return (
-    <>
-        {/* <div className="App" style={{
+        <div className="App" style={{
             fontFamily: theme.fontFamily.split('+').join(' '),
+            fontWeight:theme.fontWeight
         }}>
             <Background />
             <ViewBackground />
-        <Application />
-            
-            Overlay
-           
-        </div> */}
-        <div>
-             <Slidebar disabled={false} minValue={0} maxValue={0} initalValue={0} divRefArray={[]}  setValue={function (): void {
-            } } />
+            <Application />
         </div>
-        
-       
-    </>
-
     );
 }
 

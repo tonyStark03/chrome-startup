@@ -10,23 +10,30 @@ import Navebar from './Navebar';
 const Application: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     return (
-        <div className='h-screen w-screen'
-        >
+        <>
             <Navebar />
-            <div className='flex items-center justify-between h-screen w-screen py-20 px-6'>
-                {/* left */}
-                <div className=' h-full w-2/6 flex items-center justify-center max-sm:hidden'>
-                    <Utility />
+            <div className='h-screen w-screen'
+            >
+                <div className='flex items-center justify-between h-screen w-screen pb-3 pt-20 px-6'>
+                    {
+                        theme.utilityIsActive &&
+                        <>
+                            {/* left */}
+                            <div className=' h-full w-2/6 flex items-center justify-center max-sm:hidden'>
+                                <Utility />
+                            </div>
+                            {/* seprator */}
+                            <Separator.Root decorative className=' w-2 h-5/6 rounded max-sm:hidden' style={{
+                                backgroundColor: theme.fontColor,
+                            }} />
+                        </>
+                    }
+                    {/* right */}
+                    <div className=' w-full h-full flex items-center justify-center'>
+                    </div>
                 </div>
-                {/* seprator */}
-                <Separator.Root decorative className=' w-2 h-5/6 rounded max-sm:hidden' style={{
-                    backgroundColor: theme.textColor,
-                }} />
-                {/* right */}
-                <div className=' w-full h-full flex items-center justify-center'>
-                </div>
-            </div>
-        </div>
+            </div >
+        </>
     )
 }
 

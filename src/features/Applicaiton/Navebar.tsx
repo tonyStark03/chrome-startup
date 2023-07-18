@@ -3,14 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     selectTheme,
 } from '../theme/themeSlice'
-import { AnimatePresence, animate, motion } from "framer-motion"
+import { AnimatePresence, animate, easeInOut, motion, useAnimationControls } from "framer-motion"
 import Card from './card';
 import {
     selectNavbar,
     changeNavbarState
 } from "./navbarSlice"
 import { Opacity, WidthFull } from '@mui/icons-material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ImageList from './ImageList';
 import Setting from './Setting'
 import HorizontalList from './HorizontalList';
@@ -23,6 +23,18 @@ const Navebar: React.FC = () => {
     const theme = useAppSelector(selectTheme);
     let dispatch = useAppDispatch();
     const navState = useAppSelector(selectNavbar).state;
+    const controls = useAnimationControls();
+    useEffect(() => {
+        if (navState === 0) return
+        controls.start({
+            y: "6.5vh",
+            transition: {
+                duration: 0.1,
+                ease: easeInOut,
+            }
+        }
+        )
+    }, [navState])
     return (
         <>
             <div
@@ -41,7 +53,6 @@ const Navebar: React.FC = () => {
                     style={{
                         fontSize: "160%",
                         fontWeight: "bold",
-                        color: "#fff",
                     }}
                 >
                     TITLE
@@ -51,7 +62,7 @@ const Navebar: React.FC = () => {
                 </div>
                 {/* right part */}
                 <div className='flex flex-auto items-center justify-end'>
-                    <button className='mr-4 hover:text-gray-400 transition-all duration-300 text-white px-2 
+                    <button className='mr-4 hover:text-gray-400 transition-all duration-300  px-2 
                 '
                         onClick={() => {
                             navState === 1 ? dispatch(changeNavbarState(0)) : dispatch(changeNavbarState(1))
@@ -59,7 +70,7 @@ const Navebar: React.FC = () => {
                     >
                         Setting
                     </button>
-                    <button className='mr-4 hover:text-gray-400 transition-all duration-300 text-white px-2 
+                    <button className='mr-4 hover:text-gray-400 transition-all duration-300  px-2 
                 '
                         onClick={() => {
                             navState === 2 ? dispatch(changeNavbarState(0)) : dispatch(changeNavbarState(2))
@@ -69,111 +80,102 @@ const Navebar: React.FC = () => {
                     </button>
                 </div>
             </div>
-
-
-
-
-
             {/* content of tabs */}
             {navState !== 0 &&
                 // animate on exit
-                <AnimatePresence >
-                    <motion.div
-                        className='fixed top-0 left-0 w-screen flex
+
+                <motion.div
+                    className='fixed top-0 left-0 w-screen flex
                     items-center justify-center
                     '
-                        style={{
-                            backgroundColor: "#010101",
-                            height: "50vh",
-                            boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0)`,
-                        }}
-                        transition={{
-                            duration: 0.1,
-                            delay: 0.1,
-                            ease: "easeInOut",
-                        }
-                        }
-                        initial={{ y: "-100%" }}
-                        animate={{
-                            y: "6.5vh",
-                            boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0.5)`,
-                        }}
-                        exit={{ x: -100 }}
-                    >
-                        {
-                            navState === 1 &&
-                            <div className='text-white h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
+                    style={{
+                        backgroundColor: "#010101",
+                        height: "50vh",
+                        boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0)`,
+                        y: "-100%"
+                    }}
+                    transition={{
+                        duration: 0.1,
+                        delay: 0.1,
+                        ease: "easeInOut",
+                    }
+                    }
+                    animate={controls}
+                // controls={ controls}
+                >
+                    {
+                        navState === 1 &&
+                        <div className=' h-full flex flex-row flex-1 overflow-x-scroll no-scrollbar
                             ' >
-                                {/* BACKGORUND */}
-                                <Card heading='Background' subHeading='Change your background'>
-                                    <Setting>
-                                        <div className='flex flex-col items-center w-full px-1
+                            {/* BACKGORUND */}
+                            <Card heading='Background' subHeading='Change your background' navControls={controls}>
+                                <Setting>
+                                    <div className='flex flex-col items-center w-full px-1
                                     '>
-                                            <div className='text-white text-6xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-6xl font-bold mb-4 w-full justify-start flex px-1
                                         '>
-                                                BACKGROUNDS
-                                            </div>
-                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                            BACKGROUNDS
+                                        </div>
+                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
                                         '
-                                            >
-                                                Change your background
-                                            </div>
+                                        >
+                                            Change your background
                                         </div>
+                                    </div>
 
-                                        <HorizontalList><ImageList /></HorizontalList>
-                                        <div className='flex flex-col items-center w-full px-1
+                                    <HorizontalList><ImageList /></HorizontalList>
+                                    <div className='flex flex-col items-center w-full px-1
                                     '>
-                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
                                         '>
-                                                Wallpapers
-                                            </div>
+                                            Wallpapers
                                         </div>
-                                        <HorizontalList><VideoList /></HorizontalList>
-                                        <div className='flex flex-col items-center w-full px-1
+                                    </div>
+                                    <HorizontalList><VideoList /></HorizontalList>
+                                    <div className='flex flex-col items-center w-full px-1
                                     '>
-                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
                                         '>
-                                                LIVE Wallpapers
-                                            </div>
+                                            LIVE Wallpapers
                                         </div>
-                                        <HorizontalList><GradientList /></HorizontalList>
-                                        <div className='flex flex-col items-center w-full px-1
+                                    </div>
+                                    <HorizontalList><GradientList /></HorizontalList>
+                                    <div className='flex flex-col items-center w-full px-1
                                     '>
-                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
                                         '>
-                                                Gradient
-                                            </div>
+                                            Gradient
                                         </div>
-                                        <HorizontalList><ColorList /></HorizontalList>
-                                        <div className='flex flex-col items-center w-full px-1
+                                    </div>
+                                    <HorizontalList><ColorList /></HorizontalList>
+                                    <div className='flex flex-col items-center w-full px-1
                                     '>
-                                            <div className='text-white text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
                                         '>
-                                                Solid Color
-                                            </div>
+                                            Solid Color
                                         </div>
-                                    </Setting></Card>
-                                {/* THEME */}
-                                <Card heading='Theme' subHeading='Change Font, Text Color etc.'>
-                                    <Setting>
-                                        <InsideTheme />
-                                    </Setting>
-                                </Card>
-                                <Card heading='Import/Export' subHeading='Import or Export your previous layouts'><Setting>""</Setting></Card>
+                                    </div>
+                                </Setting></Card>
+                            {/* THEME */}
+                            <Card heading='Theme' subHeading='Change Font, Text Color etc.' navControls={controls}>
+                                <Setting>
+                                    <InsideTheme />
+                                </Setting>
+                            </Card>
+                            <Card heading='Import/Export' subHeading='Import or Export your previous layouts' navControls={controls}><Setting>""</Setting></Card>
 
-                            </div>
-                        }
-                        {
-                            navState === 2 &&
-                            <div className='text-white'>
-                                awsbfffg
+                        </div>
+                    }
+                    {
+                        navState === 2 &&
+                        <div className=''>
+                            awsbfffg
 
-                            </div>
-                        }
+                        </div>
+                    }
 
 
-                    </motion.div>
-                </AnimatePresence >
+                </motion.div>
 
             }
         </>
