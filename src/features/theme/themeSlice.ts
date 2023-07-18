@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
-import {  storeThemeInLocalStorage } from "../../app/handlingDatabase";
+import { storeThemeInLocalStorage } from "../../app/handlingDatabase";
 import { changeBackground } from "../background/backgroundSlice";
 
 export interface themeSliceProps {
     backgroundType: "image" | "video" | "color" | "gradient";
     backgroundValue: string;
     backgroundBlur: string;
-    textColor: string;
+    fontColor: string;
     primaryColor: string;
     borderColor: string;
     borderRadius: string;
@@ -18,8 +18,8 @@ export interface themeSliceProps {
     displaySetting: boolean;
     utilityIsDateActive: boolean;
     utilityIsTimeActive: boolean;
-    fontSize: number;
-    
+    utilityFontColor: string;
+    fontWeight: number;
 }
 
 export const initialState: themeSliceProps = {
@@ -27,7 +27,7 @@ export const initialState: themeSliceProps = {
     backgroundValue: "#ffffff",
     backgroundBlur: "0",
     utilityIsActive: true,
-    textColor: "#ffffff",
+    fontColor: "#ffffff",
     primaryColor: "#7C81E3",
     borderColor: "#808080",
     borderRadius: "10",
@@ -37,8 +37,8 @@ export const initialState: themeSliceProps = {
     displaySetting: true,
     utilityIsDateActive: true,
     utilityIsTimeActive: true,
-    
-    fontSize: 20,
+    utilityFontColor: "#ffffff",
+    fontWeight: 400,
 };
 
 export const themeSlice = createSlice({
@@ -50,7 +50,7 @@ export const themeSlice = createSlice({
             state.backgroundType = action.payload.backgroundType;
             state.backgroundValue = action.payload.backgroundValue;
             state.backgroundBlur = action.payload.backgroundBlur;
-            state.textColor = action.payload.textColor;
+            state.fontColor = action.payload.fontColor;
             state.primaryColor = action.payload.primaryColor;
             state.borderColor = action.payload.borderColor;
             state.borderRadius = action.payload.borderRadius;
@@ -61,6 +61,8 @@ export const themeSlice = createSlice({
             state.displaySetting = action.payload.displaySetting;
             state.utilityIsDateActive = action.payload.utilityIsDateActive;
             state.utilityIsTimeActive = action.payload.utilityIsTimeActive;
+            state.utilityFontColor = action.payload.utilityFontColor;
+            state.fontWeight = action.payload.fontWeight;
         },
     },
 });

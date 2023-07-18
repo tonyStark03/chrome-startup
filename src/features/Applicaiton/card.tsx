@@ -1,6 +1,6 @@
 import Person4Icon from "@mui/icons-material/Person4";
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { AnimationControls, animate, motion, useAnimationControls, useMotionValue } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { changeNavbarState } from "./navbarSlice";
 import { selectNavbar } from "./navbarSlice";
@@ -11,9 +11,10 @@ interface Props {
     heading: string;
     subHeading: string;
     children: React.ReactNode
+    navControls: AnimationControls
 }
 
-const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
+const Card: React.FC<Props> = ({ heading, subHeading, children,navControls }) => {
     const element = useRef<HTMLDivElement>
         (null);
     const [isHovering, setIsHovering] = useState(false);
@@ -45,8 +46,8 @@ const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
         <motion.div
             ref={element}
             style={{
-                backgroundColor: "#010101",
-                zIndex: 50
+                backgroundColor: isMainScreen? "rgb(0,0,0,0)" : "#010101",
+                zIndex: 50,
             }}
             animate={mainScreenAnimation}
             onClick={() => {
@@ -55,7 +56,7 @@ const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
                 mainScreenAnimation.start({
                     position: "absolute",
                     x: (element && element.current) ? element.current.getBoundingClientRect().x : 0,
-                    y: 0,
+                    y: "0",
                     transition: {
                         duration: 0,
                         ease: "easeOut",
@@ -76,6 +77,20 @@ const Card: React.FC<Props> = ({ heading, subHeading, children }) => {
                     transition: {
                         duration: 0.1,
                         ease: "easeOut",
+                    },
+                });
+                mainScreenAnimation.start({
+                    y:"56.5vh",
+                    transition:{
+                        delay:0.1,
+                        duration:0,
+                    }
+                })
+                navControls.start({
+                    y: "-50vh",
+                    transition: {
+                        delay: 0.1,
+                        duration: 0,
                     },
                 });
             }}
