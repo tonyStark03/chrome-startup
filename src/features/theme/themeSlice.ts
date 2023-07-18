@@ -20,11 +20,15 @@ export interface themeSliceProps {
     utilityIsTimeActive: boolean;
     utilityFontColor: string;
     fontWeight: number;
+    isItalic: boolean;
+    navbarColor: string;
+    separatorColor: string;
+    navbarDropdownColor:string;
 }
 
 export const initialState: themeSliceProps = {
-    backgroundType: "color",
-    backgroundValue: "#ffffff",
+    backgroundType: "gradient",
+    backgroundValue: "#0c4b72-#5a8b6a",
     backgroundBlur: "0",
     utilityIsActive: true,
     fontColor: "#ffffff",
@@ -32,13 +36,17 @@ export const initialState: themeSliceProps = {
     borderColor: "#808080",
     borderRadius: "10",
     navBlur: "10",
-    fontFamily: `Dancing+Script`,
+    fontFamily: `Roboto`,
     backgroundColor: "#333333",
     displaySetting: true,
     utilityIsDateActive: true,
     utilityIsTimeActive: true,
     utilityFontColor: "#ffffff",
     fontWeight: 400,
+    isItalic: false,
+    navbarColor: "#010101",
+    separatorColor: "#ffffff",
+    navbarDropdownColor:"#010101"
 };
 
 export const themeSlice = createSlice({
@@ -63,6 +71,11 @@ export const themeSlice = createSlice({
             state.utilityIsTimeActive = action.payload.utilityIsTimeActive;
             state.utilityFontColor = action.payload.utilityFontColor;
             state.fontWeight = action.payload.fontWeight;
+            state.isItalic = action.payload.isItalic;
+            state.navbarColor = action.payload.navbarColor;
+            state.separatorColor = action.payload.separatorColor;
+            state.navbarDropdownColor = action.payload.navbarDropdownColor;
+            
         },
     },
 });

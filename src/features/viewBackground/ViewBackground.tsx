@@ -145,7 +145,7 @@ const ViewBackground: React.FC = () => {
                         muted
                     />
                 }
-                <motion.div className='absolute  py-1 text-white font-bold transition-all duration-300 cursor-pointer top-0 left-0 flex justify-center items-center rounded-full text-4xl
+                <motion.div className='absolute  py-1 text-white  transition-all duration-300 cursor-pointer top-0 left-0 flex justify-center items-center rounded-full text-4xl
                     
                     '
                     onClick={() => {

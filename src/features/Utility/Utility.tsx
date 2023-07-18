@@ -47,7 +47,7 @@ const UseDate: React.FC = () => {
                     <Separator.Root decorative className=' w-5/6 h-1 ' />
 
                     <Separator.Root decorative className=' w-5/6 h-0.5 rounded-xl' style={{
-                        backgroundColor: theme.primaryColor,
+                        backgroundColor: theme.separatorColor,
                     }} />
                 </>
             }

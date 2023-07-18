@@ -32,7 +32,7 @@ const UtilitySettings: React.FC = () => {
         <div className='w-full px-4 text-center py-4
         '
         >
-            <div className=' text-4xl text-start font-bold py-2
+            <div className=' text-4xl text-start py-2
             '>
                 {/* UtilitySettings */}
                 Utility Settings
@@ -72,8 +72,12 @@ const UtilitySettings: React.FC = () => {
                         >
                         </div>
                     </Popover.Trigger>
-                    <Popover.Content>
-                        <motion.div
+                    <Popover.Content
+                        style={{
+                            zIndex: 100
+                        }}
+                    >
+                        <div
                             onMouseDown={() => {
                                 dispatch(changesettingsOpatcity(0))
                                 console.log("mouse down")
@@ -95,7 +99,7 @@ const UtilitySettings: React.FC = () => {
                                     onChange={setFontColor} hideRGB hideHSV dark
                                 />
                             }
-                        </motion.div>
+                        </div>
                     </Popover.Content>
                 </Popover.Root>
             </div>

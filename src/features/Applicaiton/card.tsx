@@ -15,6 +15,8 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ heading, subHeading, children,navControls }) => {
+    const primaryColor = useAppSelector(state=>state.theme.primaryColor)
+    const navbarDropdownColor = useAppSelector(state=>state.theme.navbarDropdownColor)
     const element = useRef<HTMLDivElement>
         (null);
     const [isHovering, setIsHovering] = useState(false);
@@ -107,8 +109,8 @@ const Card: React.FC<Props> = ({ heading, subHeading, children,navControls }) =>
                     onMouseLeave={handleMouseOut}
                     style={{
                         aspectRatio: "4/5",
-                        backgroundColor: "#7C81E3",
-                        backgroundImage: "linear-gradient(#010101,#010101)",
+                        backgroundColor: primaryColor,
+                        backgroundImage: `linear-gradient(${navbarDropdownColor},${navbarDropdownColor})`,
                         backgroundRepeat: "no-repeat",
                         backgroundPositionY: !isHovering ? "0" : `-${element && element.current ? element.current.clientHeight + 10 : 1}px`,
                         transition: "all .1s ease-in",
@@ -135,7 +137,7 @@ const Card: React.FC<Props> = ({ heading, subHeading, children,navControls }) =>
                                 duration: 0.1,
                                 ease: "easeOut",
                             }}
-                            className="text-2xl font-bold 
+                            className="text-2xl 
                 "
                         >
                             {heading}

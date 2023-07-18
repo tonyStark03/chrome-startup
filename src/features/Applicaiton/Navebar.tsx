@@ -42,7 +42,7 @@ const Navebar: React.FC = () => {
             items-center justify-between px-1 z-50
             '
                 style={{
-                    backgroundColor: "#010101",
+                    backgroundColor: theme.navbarColor,
                     height: "6.5vh",
                     // bottom border 1px with color:theme.borderColor
                     borderBottom: `1px solid ${theme.borderColor}`,
@@ -89,7 +89,7 @@ const Navebar: React.FC = () => {
                     items-center justify-center
                     '
                     style={{
-                        backgroundColor: "#010101",
+                        backgroundColor: theme.navbarDropdownColor,
                         height: "50vh",
                         boxShadow: `0px 0px 20px 100vh rgba(0,0,0,0)`,
                         y: "-100%"
@@ -112,11 +112,11 @@ const Navebar: React.FC = () => {
                                 <Setting>
                                     <div className='flex flex-col items-center w-full px-1
                                     '>
-                                        <div className=' text-6xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-6xl mb-4 w-full justify-start flex px-1
                                         '>
                                             BACKGROUNDS
                                         </div>
-                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl mb-4 w-full justify-start flex px-1
                                         '
                                         >
                                             Change your background
@@ -126,7 +126,7 @@ const Navebar: React.FC = () => {
                                     <HorizontalList><ImageList /></HorizontalList>
                                     <div className='flex flex-col items-center w-full px-1
                                     '>
-                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl mb-4 w-full justify-start flex px-1
                                         '>
                                             Wallpapers
                                         </div>
@@ -134,7 +134,7 @@ const Navebar: React.FC = () => {
                                     <HorizontalList><VideoList /></HorizontalList>
                                     <div className='flex flex-col items-center w-full px-1
                                     '>
-                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl mb-4 w-full justify-start flex px-1
                                         '>
                                             LIVE Wallpapers
                                         </div>
@@ -142,7 +142,7 @@ const Navebar: React.FC = () => {
                                     <HorizontalList><GradientList /></HorizontalList>
                                     <div className='flex flex-col items-center w-full px-1
                                     '>
-                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl mb-4 w-full justify-start flex px-1
                                         '>
                                             Gradient
                                         </div>
@@ -150,7 +150,7 @@ const Navebar: React.FC = () => {
                                     <HorizontalList><ColorList /></HorizontalList>
                                     <div className='flex flex-col items-center w-full px-1
                                     '>
-                                        <div className=' text-2xl font-bold mb-4 w-full justify-start flex px-1
+                                        <div className=' text-2xl mb-4 w-full justify-start flex px-1
                                         '>
                                             Solid Color
                                         </div>

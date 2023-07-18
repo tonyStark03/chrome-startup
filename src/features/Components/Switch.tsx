@@ -42,7 +42,7 @@ const Switch: React.FC<props> = ({ state, setState, disabled }) => {
                 backgroundColor: "rgb(156 163 175 / 1)"
             })
         }
-    }, [state])
+    }, [state,theme.primaryColor])
     return (
         <motion.div className='w-20 h-10  rounded-full transition-all duration-100 ease-in-out'
             onClick={toggle}
