@@ -29,7 +29,7 @@ const Setting: React.FC<Props> = ({ children }) => {
                 duration: 0.2,
             }
         })
-    }, [navaState.settingsOpatcity])
+    }, [navaState.settingsOpatcity,theme.backgroundColor])
     return (
         <motion.div className='flex items-center justify-between h-full w-full  '
             initial={{
@@ -70,7 +70,7 @@ const Setting: React.FC<Props> = ({ children }) => {
                 }}
             >
                 <Separator.Root decorative className='h-full  rounded' style={{
-                    backgroundColor: theme.borderColor,
+                    backgroundColor: theme.separatorColor,
                     width: "1px"
                 }} />
             </motion.div>

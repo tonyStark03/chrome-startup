@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import * as Popover from '@radix-ui/react-popover';
 import { ColorPicker, useColor } from 'react-color-palette';
 import Slidebar from '../Components/Slidebar';
+import Switch from '../Components/Switch';
 
 const FontSettings: React.FC = () => {
     const theme = useAppSelector(selectTheme)
@@ -11,18 +12,20 @@ const FontSettings: React.FC = () => {
     const [fontFamily, setfontFamily] = useState<string>(theme.fontFamily)
     const [fontColor, setFontColor] = useColor("hex", theme.fontColor);
     const [fontWeight, setFontWeight] = useState<number>(theme.fontWeight)
+    const [isItalic, setIsItalic] = useState<boolean>(theme.isItalic)
     useEffect(() => {
         dispatch(changeTheme({
             ...theme,
             fontColor: fontColor.hex,
-            fontWeight
+            fontWeight,
+            isItalic,
         }))
-    }, [fontColor,fontWeight])
+    }, [fontColor, fontWeight,isItalic])
     return (
-        <div className='w-full px-4 text-center py-4
+        <div className='w-full px-4 text-center py-4 
         '
         >
-            <div className=' text-4xl text-start font-bold py-2
+            <div className=' text-4xl text-start  py-2 
             '>
                 Font Settings</div>
             <div className='w-full px-40 flex justify-between text-2xl py-2
@@ -38,7 +41,7 @@ const FontSettings: React.FC = () => {
                         }))
                     }}
 
-                    className='w-auto text-black text-2xl font-bold
+                    className='w-auto text-black text-2xl 
                 ' />
             </div>
             <div className='w-full px-40 flex justify-between text-2xl py-2
@@ -49,6 +52,7 @@ const FontSettings: React.FC = () => {
                     <Slidebar
                         minValue={100}
                         maxValue={900}
+                        step={100}
                         initialValue={fontWeight}
                         setValue={setFontWeight}
                         divRefArray={[]}
@@ -56,7 +60,8 @@ const FontSettings: React.FC = () => {
                 </div>
             </div>
             <div className='w-full px-40 flex justify-between text-2xl py-2
-            '>
+            '
+            >
                 Font Color
                 {/* color picker */}
                 <Popover.Root>
@@ -81,6 +86,13 @@ const FontSettings: React.FC = () => {
                         />
                     </Popover.Content>
                 </Popover.Root>
+            </div>
+            <div className='w-full px-40 flex justify-between text-2xl py-2 
+            '>
+
+                Italic
+                {/* switch */}
+                <Switch state={isItalic} setState={setIsItalic} />
             </div>
         </div>
     )

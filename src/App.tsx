@@ -55,13 +55,13 @@ const App = () => {
         let head = document.querySelector("head")
         let link = document.createElement("link")
         link.setAttribute("rel", "stylesheet")
-        link.setAttribute("href", `https://fonts.googleapis.com/css2?family=${theme.fontFamily}&display=swap`)
+        link.setAttribute("href", `https://fonts.googleapis.com/css2?family=${theme.fontFamily}:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap`)
         head?.appendChild(link)
     }, [theme.fontFamily]);
     return (
-        <div className="App" style={{
+        <div className={`App ${theme.isItalic? "italic":""}`} style={{
             fontFamily: theme.fontFamily.split('+').join(' '),
-            fontWeight:theme.fontWeight
+            fontWeight:theme.fontWeight,
         }}>
             <Background />
             <ViewBackground />
