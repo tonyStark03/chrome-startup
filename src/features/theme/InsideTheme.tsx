@@ -21,24 +21,24 @@ const InsideTheme: React.FC = () => {
             <div className=' flex flex-col items-center min-w-max rounded px-2
             '>
                 <UtilitySettings />
-                <Separator.Root className='bg-white w-11/12
+                <Separator.Root className=' w-11/12
                 ' style={{
-                        height: "1px",
+                        height: "1px", backgroundColor: theme.separatorColor,
                     }} />
                 <FontSettings />
-                <Separator.Root className='bg-white w-11/12
+                <Separator.Root className=' w-11/12
                 ' style={{
-                        height: "1px",
+                        height: "1px", backgroundColor: theme.separatorColor,
                     }} />
                 <ColorSettings />
-                <Separator.Root className='bg-white w-11/12
+                <Separator.Root className=' w-11/12
                 ' style={{
-                        height: "1px",
+                        height: "1px", backgroundColor: theme.separatorColor,
                     }} />
                 <BookmarkIconSettings />
-                <Separator.Root className='bg-white w-11/12
+                <Separator.Root className=' w-11/12
                 ' style={{
-                        height: "1px",
+                        height: "1px", backgroundColor: theme.separatorColor,
                     }} />
             </div>
 

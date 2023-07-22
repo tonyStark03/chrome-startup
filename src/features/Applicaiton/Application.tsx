@@ -9,16 +9,43 @@ import Navebar from './Navebar';
 
 const Application: React.FC = () => {
     const theme = useAppSelector(selectTheme);
+    const horizontal = Boolean(true)
     return (
         <>
             <Navebar />
             <div className='h-screen w-screen'
             >
+                {/* top */}
+                {horizontal?
+                    <div className='flex-col justify-center h-screen w-screen pt-16'>
+                    {
+                        theme.utilityIsActive &&
+                        <>
+                            
+                            <div className='w-full h-2/6 items-center max-sm:hidden '>
+                                <Utility />
+                            </div>
+                            <Separator.Root decorative className=' h-1 w-screen rounded max-sm:hidden' style={{
+                                backgroundColor: theme.separatorColor,
+                            }} />
+                        </>
+                    }
+                    {/* below */}
+                    
+                    <div className=' w-full h-full flex items-center justify-center'>
+                </div>
+
+                </div>
+               
+                    
+                    :
+
                 <div className='flex items-center justify-between h-screen w-screen pb-3 pt-20 px-6'>
                     {
                         theme.utilityIsActive &&
                         <>
                             {/* left */}
+                            
                             <div className=' h-full w-2/6 flex items-center justify-center max-sm:hidden'>
                                 <Utility />
                             </div>
@@ -32,6 +59,7 @@ const Application: React.FC = () => {
                     <div className=' w-full h-full flex items-center justify-center'>
                     </div>
                 </div>
+                 }
             </div >
         </>
     )
