@@ -86,6 +86,9 @@ const UtilitySettings: React.FC = () => {
                                 dispatch(changesettingsOpatcity(1))
                                 console.log("mouse up")
                             }}
+                            // onMouse
+                            
+                            
                         >
                             {
                                 isActive &&
